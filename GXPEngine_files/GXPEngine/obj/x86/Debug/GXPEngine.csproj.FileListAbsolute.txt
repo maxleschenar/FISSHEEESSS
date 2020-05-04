@@ -9,3 +9,9 @@ D:\pee\GXPEngine_files\GXPEngine\obj\x86\Debug\GXPEngine.csprojAssemblyReference
 D:\pee\GXPEngine_files\GXPEngine\obj\x86\Debug\GXPEngine.exe
 D:\pee\GXPEngine_files\GXPEngine\obj\x86\Debug\GXPEngine.pdb
 D:\pee\GXPEngine_files\GXPEngine\bin\Debug\GXPEngine.exe.config
+D:\school\term_4\final approach\test\FISSHEEESSS\GXPEngine_files\GXPEngine\bin\Debug\GXPEngine.exe.config
+D:\school\term_4\final approach\test\FISSHEEESSS\GXPEngine_files\GXPEngine\bin\Debug\GXPEngine.exe
+D:\school\term_4\final approach\test\FISSHEEESSS\GXPEngine_files\GXPEngine\bin\Debug\GXPEngine.pdb
+D:\school\term_4\final approach\test\FISSHEEESSS\GXPEngine_files\GXPEngine\obj\x86\Debug\GXPEngine.csprojAssemblyReference.cache
+D:\school\term_4\final approach\test\FISSHEEESSS\GXPEngine_files\GXPEngine\obj\x86\Debug\GXPEngine.exe
+D:\school\term_4\final approach\test\FISSHEEESSS\GXPEngine_files\GXPEngine\obj\x86\Debug\GXPEngine.pdb
