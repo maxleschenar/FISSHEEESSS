@@ -7,16 +7,18 @@ public class MyGame : Game
 	Button test;
 	public MyGame() : base(800, 600, false)		// Create a window that's 800x600 and NOT fullscreen
 	{
-		test = new Button(new Vec2(width / 2, height / 2), "playbutton.png");
-		AddChild(test);
+		//test = new Button(new Vec2(width / 2, height / 2), "playbutton.png");
+		//AddChild(test);
+		Fish testFish = new Fish();
+		AddChild(testFish);
     }
 
     void Update()
 	{
-		if (CheckMouseInRect(test))
-		{
-			Console.WriteLine("lol tities");
-		}
+		//if (CheckMouseInRect(test))
+		//{
+		//	Console.WriteLine("lol tities");
+		//}
 
 	}
 
@@ -25,18 +27,18 @@ public class MyGame : Game
 		new MyGame().Start();					// Create a "MyGame" and start it
 	}
 
-	bool CheckMouseInRect(Button button)
-	{
-		if (Input.GetMouseButtonDown(0))
-		{
-			if (Input.mouseX > button.x && Input.mouseX < button.x + button.Width &&
-				Input.mouseY > button.y && Input.mouseY < button.y + button.Height)
-			{
-				return true;
-			}
-			return false;
-		}
-		else return false;
-	}
+	//bool CheckMouseInRect(Button button)
+	//{
+	//	if (Input.GetMouseButtonDown(0))
+	//	{
+	//		if (Input.mouseX > button.x && Input.mouseX < button.x + button.Width &&
+	//			Input.mouseY > button.y && Input.mouseY < button.y + button.Height)
+	//		{
+	//			return true;
+	//		}
+	//		return false;
+	//	}
+	//	else return false;
+	//}
 
 }
