@@ -48,6 +48,7 @@ public class MyGame : Game
 		else return false;
 	}
 
+
 	public static bool CheckMouseInRect(Sprite sprite)
 	{
 		if (Input.GetMouseButtonDown(0))
