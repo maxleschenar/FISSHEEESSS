@@ -7,5 +7,9 @@ namespace GXPEngine
 {
     class Journal
     {
+        public Journal()
+        {
+            Console.WriteLine("pissballs");
+        }
     }
 }
