@@ -7,47 +7,34 @@ namespace GXPEngine
 {
     class Scene: GameObject
     {
-        Fish fish1;
-        Fish fish2;
         int timer=1000;
         Sponge sponge;
         public List<Food> foodList;
+        List<Fish> fishListPerScene;
 
         public Scene()
         {
             foodList = new List<Food>();
-             fish1 = new Fish(foodList);
-             fish2 = new Fish(foodList);
-            //AddChild(fish1);
-            //AddChild(fish2);
+            fishListPerScene = new List<Fish>();
+            DisplayFishInScene fishes = new DisplayFishInScene(1, foodList, fishListPerScene);
             sponge = new Sponge();
         }
         void addFish()
         {
-            if (fish1.isUnlocked == true)
+            foreach(Fish fish in fishListPerScene)
             {
-                if (fish1.isAdded == false)
+                if (fish.isUnlocked == true)
                 {
-                    AddChild(fish1);
-                    fish1.isAdded = true;
+                    if (fish.isAdded == false)
+                    {
+                        AddChild(fish);
+                        fish.isAdded = true;
+                    }
                 }
-            }
-            if (fish2.isUnlocked == true)
-            {
-                if (fish2.isAdded == false)
+                if (Input.GetKeyDown(Key.Q))
                 {
-                    AddChild(fish2);
-                    fish2.isAdded = true;
+                    fish.isUnlocked = true;
                 }
-            }
-            if (Input.GetKeyDown(Key.Q))
-            {
-                fish1.isUnlocked = true;
-            }
-            if (Input.GetKeyDown(Key.E))
-            {
-                Console.WriteLine("fish2");
-                fish2.isUnlocked = true;
             }
         }
         void makeFood()
@@ -57,9 +44,6 @@ namespace GXPEngine
                 Food food = new Food();
                 AddChild(food);
                 foodList.Add(food);
-                //fish1.AddFood(food);
-                //fish2.AddFood(food);
-
             }
         }
         void Update()

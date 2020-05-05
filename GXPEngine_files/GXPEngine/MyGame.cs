@@ -4,7 +4,7 @@ using System.Drawing;
 
 public class MyGame : Game
 {
-	Button test;
+	//Button test;
 	public MyGame() : base(800, 600, false)		// Create a window that's 800x600 and NOT fullscreen
 	{
 		//test = new Button(new Vec2(width / 2, height / 2), "playbutton.png");
