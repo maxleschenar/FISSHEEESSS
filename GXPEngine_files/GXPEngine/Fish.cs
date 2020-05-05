@@ -7,19 +7,21 @@ namespace GXPEngine
 {
     class Fish: Sprite
     {
-        List<Food> foodList;
-
+        public List<Food> foodList;
+        public bool isAdded = false;
+        public bool isUnlocked = false;
         Vec2 _position;
         public Vec2 velocity;
         public Vec2 currentPoint = new Vec2(0, 0);
         public Vec2 foodPoint = new Vec2(0, 0);
         float _radius;
-        public Fish(): base("colors.png")
+        public Fish(List<Food> _foodList): base("colors.png")
         {
+            foodList = _foodList;
             SetOrigin(width / 2, height / 2);
             _position = new Vec2(200, 300);
             _radius = width / 2;
-            foodList = new List<Food>();
+            //foodList = new List<Food>();
 
         }
 
