@@ -20,9 +20,10 @@ public class Button : GameObject
 
     public Button(Vec2 position, string path)
     {
-        SetXY(position.x, position.y);
+        
         img = Image.FromFile(path);
         canvas = new Canvas(img.Width, img.Height);
+        SetXY(position.x - img.Width / 2, position.y - img.Height / 2);
         AddChild(canvas);
     }
 

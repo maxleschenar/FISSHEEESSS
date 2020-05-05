@@ -40,6 +40,16 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Button.cs" />
+    <Compile Include="Fish.cs" />
+    <Compile Include="FishTank.cs" />
+    <Compile Include="FishWindow.cs" />
+    <Compile Include="Journal.cs" />
+    <Compile Include="Level.cs" />
+    <Compile Include="CollisionInfo.cs" />
+    <Compile Include="Dirt.cs" />
+    <Compile Include="Fish.cs" />
+    <Compile Include="Food.cs" />
+    <Compile Include="LineSegment.cs" />
     <Compile Include="Menu.cs" />
     <Compile Include="MyGame.cs" />
     <Compile Include="GXPEngine\Canvas.cs" />
@@ -79,6 +89,8 @@
     <Compile Include="GXPEngine\FMOD\FMODSoundSystem.cs" />
     <Compile Include="GXPEngine\SoLoud\Soloud.cs" />
     <Compile Include="GXPEngine\SoLoud\SoloudSoundSystem.cs" />
+    <Compile Include="Scene.cs" />
+    <Compile Include="Sponge.cs" />
     <Compile Include="Vec2.cs" />
   </ItemGroup>
   <ItemGroup />
