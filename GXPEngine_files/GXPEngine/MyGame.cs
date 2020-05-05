@@ -9,8 +9,10 @@ public class MyGame : Game
 	{
 		//test = new Button(new Vec2(width / 2, height / 2), "playbutton.png");
 		//AddChild(test);
-		Fish testFish = new Fish();
-		AddChild(testFish);
+		//Fish testFish = new Fish();
+		//AddChild(testFish);
+		Scene scene = new Scene();
+		AddChild(scene);
     }
 
     void Update()
