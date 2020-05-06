@@ -24,8 +24,8 @@ namespace GXPEngine
             isActive = true;
             tank = new Sprite(path);
             downArrow = new Sprite("downarrow.png");
-            downArrow.SetOrigin(downArrow.width / 2, downArrow.height / 2);
-            downArrow.SetXY(game.width / 2, game.height - 100);
+
+            downArrow.SetXY(game.width / 2, game.height - 200);
             downArrow.SetScaleXY(0.2f);
             foodList = new List<Food>();
             AddChild(tank);
@@ -62,7 +62,6 @@ namespace GXPEngine
         }
         void Update()
         {
-
             if (isActive)
             {
                 if (isShopDisplayed == false)
