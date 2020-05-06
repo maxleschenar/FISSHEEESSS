@@ -22,7 +22,6 @@ namespace GXPEngine
 
         public Sprite buyToUnlock;
         public Fish(List<Food> _foodList): base("colors.png")
-
         {
             foodList = _foodList;
             SetOrigin(width / 2, height / 2);

@@ -8,9 +8,7 @@ namespace GXPEngine
     class Scene: GameObject
     {
 
-        Sprite tank, downArrow;
-        Fish fish1;
-        Fish fish2;
+        //Sprite tank, downArrow;
 
         int timer=1000;
         bool isActive;
@@ -22,16 +20,13 @@ namespace GXPEngine
         public Scene(string path) : base()
         {
             isActive = true;
-            tank = new Sprite(path);
-            downArrow = new Sprite("downarrow.png");
+            //tank = new Sprite(path);
+            //downArrow = new Sprite("downarrow.png");
             foodList = new List<Food>();
 
-            fish1 = new Fish(foodList);
-            fish2 = new Fish(foodList);
-            AddChild(tank);
-            AddChild(downArrow);
-            AddChild(fish1);
-            AddChild(fish2);
+            //AddChild(tank);
+            //AddChild(downArrow);
+
 
             fishListPerScene = new List<Fish>();
             DisplayFishInScene fishes = new DisplayFishInScene(1, foodList, fishListPerScene);
@@ -66,11 +61,14 @@ namespace GXPEngine
 
             if (isActive)
             {
-                makeFood();
+                if (isShopDisplayed == false)
+                {
+                    makeFood();
+                }
                 makeDirt();
                 displaySponge();
                 addFish();
-                goBack();
+                //goBack();
             }
 
             if (isShopDisplayed == false)
@@ -97,17 +95,17 @@ namespace GXPEngine
             }
         }
 
-        void goBack()
-        {
-            if (MyGame.CheckMouseInRect(downArrow))
-            {
-                isActive = false;
-                tank.alpha = 0f;
-                fish1.alpha = 0f;
-                fish2.alpha = 0f;
-                downArrow.alpha = 0f;
-            }
-        }
+        //void goBack()
+        //{
+        //    if (MyGame.CheckMouseInRect(downArrow))
+        //    {
+        //        isActive = false;
+        //        //tank.alpha = 0f;
+        //        //fish1.alpha = 0f;
+        //        //fish2.alpha = 0f;
+        //        //downArrow.alpha = 0f;
+        //    }
+        //}
 
         bool spongeOnScreen = false;
         void displaySponge()
