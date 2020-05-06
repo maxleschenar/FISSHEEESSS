@@ -8,19 +8,32 @@ namespace GXPEngine
     class Scene: GameObject
     {
 
+//<<<<<<< HEAD
+        //Sprite tank, downArrow;
+        
+//=======
         Sprite tank, downArrow;
         Level level;
+//>>>>>>> 31869b4ec1c682aefb308fdece290575e5992185
         int timer=1000;
         public bool isActive;
         Sponge sponge;
         public List<Food> foodList;
         List<Fish> fishListPerScene;
         Shop shop;
+        CurrencySystem _currency;
+        int cleanMeter = 0;
 
-        public Scene(string path, Level level) : base()
+//<<<<<<< HEAD
+        public Scene(string path, CurrencySystem currency, Level level) : base()
         {
+            _currency = currency;
+//=======
+       // public Scene() : base()
+       // {
             visible = false;
             this.level = level;
+//>>>>>>> 31869b4ec1c682aefb308fdece290575e5992185
             isActive = true;
             tank = new Sprite(path);
             downArrow = new Sprite("downarrow.png");
@@ -71,10 +84,31 @@ namespace GXPEngine
                 makeDirt();
                 displaySponge();
                 addFish();
-                displayShop();
+//<<<<<<< HEAD
                 goBack();
             }
+        }
 
+        void handleMoney()
+        {
+            foreach (Fish fish in fishListPerScene)
+            {
+                if (fish.isUnlocked == true)
+                {
+                    if (fish.isAdded == false)
+                    {
+                        AddChild(fish);
+                        fish.isAdded = true;
+                    }
+                }
+            }
+           //if ()
+//=======
+                displayShop();
+                goBack();
+            
+
+//>>>>>>> 31869b4ec1c682aefb308fdece290575e5992185
         }
         void makeDirt()
         {

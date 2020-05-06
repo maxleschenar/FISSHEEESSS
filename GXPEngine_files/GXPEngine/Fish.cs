@@ -59,7 +59,7 @@ namespace GXPEngine
             if (currentPoint.x != 0 && currentPoint.y != 0)
             {
                 velocity.SetXY(0, 0);
-                if (isFishHungry <= 5000)
+                if (isFishHungry <= 3000)
                 {
                     if (isFoodPresent())
                     {
@@ -73,11 +73,11 @@ namespace GXPEngine
                     currentPoint.SetXY(0, 0);
                     if (isFoodPresent())
                     {
-                        if (currentFood != null&& isFishHungry <= 5000)
+                        if (currentFood != null&& isFishHungry <= 3000)
                         {
                             RemoveFood(currentFood);
                             currentFood.LateDestroy();
-                            isFishHungry += 2000;
+                            isFishHungry += 4000;
                             Console.WriteLine(isFishHungry);
                         }
 
@@ -96,7 +96,7 @@ namespace GXPEngine
                 currentPoint.SetXY(Utils.Random(50, game.width - 50), Utils.Random(_position.y - 100, _position.y + 100));
                 if (isFoodPresent())
                 {
-                    if (isFishHungry <= 5000)
+                    if (isFishHungry <= 3000)
                     {
                         calcNearestFood();
                     }
@@ -135,7 +135,7 @@ namespace GXPEngine
 
         void displayHungerIcon()
         {
-            if (isFishHungry <= 5000)
+            if (isFishHungry <= 3000)
             {
                 AddChild(hungerIcon);
             }
