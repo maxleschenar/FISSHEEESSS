@@ -46,7 +46,7 @@ namespace GXPEngine
                 {
                     if (fish.isAdded == false)
                     {
-                        AddChildAt(fish,2);
+                        AddChild(fish);
                         fish.isAdded = true;
                     }
                 }
@@ -92,7 +92,7 @@ namespace GXPEngine
             {
                 Dirt dirt = new Dirt();
                 sponge.addDirt(dirt);
-                AddChildAt(dirt,5);
+                AddChild(dirt);
                 timer = 1000;
             }
         }
