@@ -8,10 +8,15 @@ namespace GXPEngine
     class Scene: GameObject
     {
 
+//<<<<<<< HEAD
         //Sprite tank, downArrow;
         
+//=======
+        Sprite tank, downArrow;
+        Level level;
+//>>>>>>> 31869b4ec1c682aefb308fdece290575e5992185
         int timer=1000;
-        bool isActive;
+        public bool isActive;
         Sponge sponge;
         public List<Food> foodList;
         List<Fish> fishListPerScene;
@@ -19,16 +24,25 @@ namespace GXPEngine
         CurrencySystem _currency;
         int cleanMeter = 0;
 
-        public Scene(string path, CurrencySystem currency) : base()
+//<<<<<<< HEAD
+        public Scene(string path, CurrencySystem currency, Level level) : base()
         {
             _currency = currency;
+//=======
+       // public Scene() : base()
+       // {
+            visible = false;
+            this.level = level;
+//>>>>>>> 31869b4ec1c682aefb308fdece290575e5992185
             isActive = true;
-            //tank = new Sprite(path);
-            //downArrow = new Sprite("downarrow.png");
-            foodList = new List<Food>();
+            tank = new Sprite(path);
+            downArrow = new Sprite("downarrow.png");
 
-            //AddChild(tank);
-            //AddChild(downArrow);
+            downArrow.SetXY(game.width / 2, game.height - 200);
+            downArrow.SetScaleXY(0.2f);
+            foodList = new List<Food>();
+            AddChild(tank);
+            AddChild(downArrow);
 
 
             fishListPerScene = new List<Fish>();
@@ -70,7 +84,8 @@ namespace GXPEngine
                 makeDirt();
                 displaySponge();
                 addFish();
-                //goBack();
+//<<<<<<< HEAD
+                goBack();
             }
         }
 
@@ -88,6 +103,12 @@ namespace GXPEngine
                 }
             }
            //if ()
+//=======
+                displayShop();
+                goBack();
+            
+
+//>>>>>>> 31869b4ec1c682aefb308fdece290575e5992185
         }
         void makeDirt()
         {
@@ -102,17 +123,15 @@ namespace GXPEngine
             }
         }
 
-        //void goBack()
-        //{
-        //    if (MyGame.CheckMouseInRect(downArrow))
-        //    {
-        //        isActive = false;
-        //        //tank.alpha = 0f;
-        //        //fish1.alpha = 0f;
-        //        //fish2.alpha = 0f;
-        //        //downArrow.alpha = 0f;
-        //    }
-        //}
+        void goBack()
+        {
+            if (MyGame.CheckMouseInRect(downArrow))
+            {
+                isActive = false;
+                level.isInScene = false;
+                visible = false;
+            }
+        }
 
         bool spongeOnScreen = false;
         void displaySponge()
