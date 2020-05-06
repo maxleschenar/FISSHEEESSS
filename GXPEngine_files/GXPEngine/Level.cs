@@ -4,109 +4,98 @@ using System.Linq;
 using System.Text;
 using System.Drawing;
 using GXPEngine;
-public class Level : GameObject
+
+public class Level : Sprite
 {
-    List<FishTank> tanks;
-    Sponge sponge;
-    Button journalButton;
-    Journal journal;
-    int currentTank;
-    bool spongeOnScreen;
-    public Level() : base()
+    List<Button> buttons;
+    List<Scene> scenes;
+    public Level() : base("aquariums.png")
     {
-        tanks = new List<FishTank>();
-        currentTank = 0;
-        journalButton = new Button(new Vec2(game.width / 2, 100), "journalbutton.png");
-        journal = new Journal();
-        sponge = new Sponge();
-        spongeOnScreen = false;
-        AddTank(new FishTank("1200-183414126-empty-aquarium-tank.jpg", tanks.Count, this));
-        AddTank(new FishTank("empty_tank2.jpg", tanks.Count, this));
-        AddTank(new FishTank("fishtank3.jpg", tanks.Count, this));
-        AddChild(journalButton);
-        AddChild(journal);
-        foreach (FishTank tank in tanks)
+        buttons = new List<Button>();
+        scenes = new List<Scene>();
+        AddButton(new Button(new Vec2(100, game.height / 2), "group1.png"));
+        AddButton(new Button(new Vec2(game.width / 2 - 50, game.height / 2), "group1.png"));
+        AddButton(new Button(new Vec2(game.width - 200, game.height / 2), "group1.png"));
+
+
+        void MoveToAnotherTank()
         {
-            if (tank.GetID() != currentTank)
+            if (MyGame.CheckMouseInRect(tanks[currentTank].rightArrow) && currentTank < tanks.Count - 1 && !journal.isOpen) //checks the right arrow and if its not on the last tank
             {
-                tank.SetTankAlpha(0);
+                tanks[currentTank].SetTankAlpha(0);
+                currentTank++;
+                tanks[currentTank].SetTankAlpha(1);
+
             }
-        }
-    }
-
-    void Update()
-    {
-        FishTank tank = tanks[currentTank];
-        MoveToAnotherTank();
-        Console.WriteLine(tanks.Count);
-        DisplaySponge();
-
-        switch (currentTank)
-        {
-            case 0:
-                tank.leftArrow.alpha = 0f;
-                break;
-            case 2:
-                tank.rightArrow.alpha = 0f;
-                break;
-            default:
-                tank.leftArrow.alpha = 1f;
-                tank.rightArrow.alpha = 1f;
-                break;
-        }
-    }
-
-    void MoveToAnotherTank()
-    {
-        if (MyGame.CheckMouseInRect(tanks[currentTank].rightArrow) && currentTank < tanks.Count - 1 && !journal.isOpen) //checks the right arrow and if its not on the last tank
-        {
-            tanks[currentTank].SetTankAlpha(0);
-            currentTank++;
-            tanks[currentTank].SetTankAlpha(1);
-
-        }
-        if (MyGame.CheckMouseInRect(tanks[currentTank].leftArrow) && currentTank > 0 && !journal.isOpen) //checks the left arrow and if its not on the first tank
-        {
-            tanks[currentTank].SetTankAlpha(0);
-            currentTank--;
-            tanks[currentTank].SetTankAlpha(1);
-        }
-        if (MyGame.CheckMouseInRect(journalButton) && !journal.isOpen) //checks for opening the journal
-        {
-            journal.SetActive(true);
-        }
-    }
-
-    void DisplaySponge()
-    {
-        if (Input.GetMouseButton(button: 1))
-        {
-            if (spongeOnScreen == false)
+            if (MyGame.CheckMouseInRect(tanks[currentTank].leftArrow) && currentTank > 0 && !journal.isOpen) //checks the left arrow and if its not on the first tank
             {
-                AddChild(sponge);
-                spongeOnScreen = true;
+                tanks[currentTank].SetTankAlpha(0);
+                currentTank--;
+                tanks[currentTank].SetTankAlpha(1);
             }
-        }
-        else
-        {
-            if (spongeOnScreen == true)
+            if (MyGame.CheckMouseInRect(journalButton) && !journal.isOpen) //checks for opening the journal
             {
-                RemoveChild(sponge);
-                spongeOnScreen = false;
+                journal.SetActive(true);
             }
         }
 
-    }
+        void DisplaySponge()
+        {
+            if (Input.GetMouseButton(button: 1))
+            {
+                if (spongeOnScreen == false)
+                {
+                    AddChild(sponge);
+                    spongeOnScreen = true;
+                }
+            }
+            else
+            {
+                if (spongeOnScreen == true)
+                {
+                    RemoveChild(sponge);
+                    spongeOnScreen = false;
+                }
+            }
 
-    public Sponge GetSponge()
-    {
-        return sponge;
-    }
+        }
 
-    void AddTank(FishTank tank)
-    {
-        AddChild(tank);
-        tanks.Add(tank);
+
+        void Update()
+        {
+            for (int i = 0; i < buttons.Count; i++)
+            {
+                if (MyGame.CheckMouseInRect(buttons[i]))
+                {
+                    switch (i)
+                    {
+                        case 0:
+                            AddScene(new Scene("fishtanksample.png"));
+                            break;
+                        case 1:
+                            AddScene(new Scene("empty_tank2.jpg"));
+                            break;
+                        case 2:
+                            AddScene(new Scene("fishtank3.jpg"));
+                            break;
+
+                    }
+                }
+            }
+        }
+
+        void AddScene(Scene scene)
+        {
+            AddChild(scene);
+            scenes.Add(scene);
+        }
+
+        void AddButton(Button button)
+        {
+            AddChild(button);
+            buttons.Add(button);
+        }
+
     }
 }
 

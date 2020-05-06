@@ -7,27 +7,27 @@ public class MyGame : Game
 	Button test;
 	Level level;
 	bool isPlaying;
-	public MyGame() : base(1200, 960, false)        // Create a window that's 800x600 and NOT fullscreen
+
+	public MyGame() : base(1200, 720, false)        // Create a window that's 800x600 and NOT fullscreen
 	{
-		Scene scene = new Scene();
-		AddChild(scene);
-		//isPlaying = false;
-		//test = new Button(new Vec2(width / 2, height / 2 - 100), "playbutton.png");
-		//AddChild(test);
+		isPlaying = false;
+		test = new Button(new Vec2(width / 2, height / 2 - 100), "playbutton.png");
+		AddChild(test);
+		//Scene scene = new Scene();
+		//AddChild(scene);
 	}
 
-	//void Update()
-	//{
-	//	if (CheckMouseInRect(test) && !isPlaying)
-	//	{
-	//		//level = new Level();
-	//		//AddChild(level);
-	//		Scene scene = new Scene();
-	//		AddChild(scene);
-	//		isPlaying = true;
-	//	}
+	void Update()
+	{
+		if (CheckMouseInRect(test) && !isPlaying)
+		{
+			level = new Level();
+			AddChild(level);
+			isPlaying = true;
+		}
 
-	//}
+	}
+
 
 	static void Main()                          // Main() is the first method that's called when the program is run
 	{

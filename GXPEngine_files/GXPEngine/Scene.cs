@@ -7,15 +7,32 @@ namespace GXPEngine
 {
     class Scene: GameObject
     {
+
+        Sprite tank, downArrow;
+        Fish fish1;
+        Fish fish2;
+
         int timer=1000;
+        bool isActive;
         Sponge sponge;
         public List<Food> foodList;
         List<Fish> fishListPerScene;
         Shop shop;
 
-        public Scene()
+        public Scene(string path) : base()
         {
+            isActive = true;
+            tank = new Sprite(path);
+            downArrow = new Sprite("downarrow.png");
             foodList = new List<Food>();
+
+            fish1 = new Fish(foodList);
+            fish2 = new Fish(foodList);
+            AddChild(tank);
+            AddChild(downArrow);
+            AddChild(fish1);
+            AddChild(fish2);
+
             fishListPerScene = new List<Fish>();
             DisplayFishInScene fishes = new DisplayFishInScene(1, foodList, fishListPerScene);
             sponge = new Sponge();
@@ -46,6 +63,16 @@ namespace GXPEngine
         }
         void Update()
         {
+
+            if (isActive)
+            {
+                makeFood();
+                makeDirt();
+                displaySponge();
+                addFish();
+                goBack();
+            }
+
             if (isShopDisplayed == false)
             {
                 makeFood();
@@ -55,6 +82,7 @@ namespace GXPEngine
             displaySponge();
             addFish();
             displayShop();
+
         }
         void makeDirt()
         {
@@ -68,6 +96,19 @@ namespace GXPEngine
                 timer = 1000;
             }
         }
+
+        void goBack()
+        {
+            if (MyGame.CheckMouseInRect(downArrow))
+            {
+                isActive = false;
+                tank.alpha = 0f;
+                fish1.alpha = 0f;
+                fish2.alpha = 0f;
+                downArrow.alpha = 0f;
+            }
+        }
+
         bool spongeOnScreen = false;
         void displaySponge()
         {

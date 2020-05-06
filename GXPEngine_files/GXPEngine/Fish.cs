@@ -5,7 +5,9 @@ using System.Text;
 
 namespace GXPEngine
 {
+
    public class Fish: Sprite
+
     {
         public List<Food> foodList;
         public bool isAdded = false;
@@ -17,14 +19,18 @@ namespace GXPEngine
         float _radius;
         int isFishHungry = 10000;
         Sprite hungerIcon;
+
+        public Fish(List<Food> _foodList) : base("colors.png");
         public Sprite buyToUnlock;
         public Fish(List<Food> _foodList): base("colors.png")
+
         {
             foodList = _foodList;
             SetOrigin(width / 2, height / 2);
             _position = new Vec2(200, 300);
             _radius = width / 2;
             hungerIcon = new Sprite("square.png");
+
             buyToUnlock = new Sprite("square.png");
         }
         public void Unlock()
@@ -126,7 +132,7 @@ namespace GXPEngine
             isFishHungry -= Time.deltaTime;
             move();
             displayHungerIcon();
-            
+
         }
 
         void displayHungerIcon()
