@@ -9,61 +9,22 @@ public class Level : Sprite
 {
     List<Button> buttons;
     List<Scene> scenes;
-    bool isInScene;
+    Journal journal;
+    public bool isInScene;
     public Level() : base("aquariums.png")
     {
         isInScene = false;
         buttons = new List<Button>();
         scenes = new List<Scene>();
+        journal = new Journal();
         AddButton(new Button(new Vec2(100, game.height / 2), "group1.png"));
         AddButton(new Button(new Vec2(game.width / 2 - 50, game.height / 2), "group1.png"));
         AddButton(new Button(new Vec2(game.width - 200, game.height / 2), "group1.png"));
+        AddScene(new Scene("fishtanksample.png", this));
+        AddScene(new Scene("empty_tank2.jpg", this));
+        AddScene(new Scene("fishtank3.jpg", this));
+        AddChild(journal);
     }
-
-
-//<<<<<<< HEAD
-    //void MoveToAnotherTank()
-    //{
-    //    if (MyGame.CheckMouseInRect(tanks[currentTank].rightArrow) && currentTank < tanks.Count - 1 && !journal.isOpen) //checks the right arrow and if its not on the last tank
-    //    {
-    //        tanks[currentTank].SetTankAlpha(0);
-    //        currentTank++;
-    //        tanks[currentTank].SetTankAlpha(1);
-
-    //    }
-    //    if (MyGame.CheckMouseInRect(tanks[currentTank].leftArrow) && currentTank > 0 && !journal.isOpen) //checks the left arrow and if its not on the first tank
-    //    {
-    //        tanks[currentTank].SetTankAlpha(0);
-    //        currentTank--;
-    //        tanks[currentTank].SetTankAlpha(1);
-    //    }
-    //    if (MyGame.CheckMouseInRect(journalButton) && !journal.isOpen) //checks for opening the journal
-    //    {
-    //        journal.SetActive(true);
-    //    }
-    //}
-
-    //void DisplaySponge()
-    //{
-    //    if (Input.GetMouseButton(button: 1))
-    //    {
-    //        if (spongeOnScreen == false)
-    //        {
-    //            AddChild(sponge);
-    //            spongeOnScreen = true;
-    //        }
-    //    }
-    //    else
-    //    {
-    //        if (spongeOnScreen == true)
-    //        {
-    //            RemoveChild(sponge);
-    //            spongeOnScreen = false;
-    //        }
-    //    }
-
-
-
 
     void Update()
     {
@@ -73,69 +34,27 @@ public class Level : Sprite
             {
                 if (MyGame.CheckMouseInRect(buttons[i]))
                 {
-                    switch (i)
-                    {
-                        case 0:
-                            AddScene(new Scene("fishtanksample.png"));
-                            break;
-                        case 1:
-                            AddScene(new Scene("empty_tank2.jpg"));
-                            Console.WriteLine("did you go here");
-                            break;
-                        case 2:
-                            AddScene(new Scene("fishtank3.jpg"));
-                            break;
-                    }
+                    scenes[i].visible = true;
+                    scenes[i].isActive = true;
                     isInScene = true;
                 }
             }
         }
     }
-//=======
-//    void Update()
-//    {
-//        if (!isInScene)
-//>>>>>>> 50acb3f53e6045915a9851ee6d4a26433e562175
-//        {
-//        for (int i = 0; i<buttons.Count; i++)
-//        {
-//            if (MyGame.CheckMouseInRect(buttons[i]))
-//            {
-//                switch (i)
-//                {
-//                    case 0:
-//                        AddScene(new Scene("fishtanksample.png"));
-//                        break;
-//                    case 1:
-//                        AddScene(new Scene("empty_tank2.jpg"));
-//                        Console.WriteLine("did you go here");
-//                        break;
-//                    case 2:
-//                        AddScene(new Scene("fishtank3.jpg"));
-//                        break;
-//                }
-//                isInScene = true;
-//            }
-//        }
-//    }
 
-//}
-void AddScene(Scene scene)
-{
-    AddChild(scene);
-    scenes.Add(scene);
-}
+    void AddScene(Scene scene)
+    {
+        AddChild(scene);
+        scenes.Add(scene);
+    }
 
-//<<<<<<< HEAD
-    
-//=======
+
     void AddButton(Button button)
     {
         AddChild(button);
         buttons.Add(button);
     }
 
-//>>>>>>> 50acb3f53e6045915a9851ee6d4a26433e562175
 
 }
 
