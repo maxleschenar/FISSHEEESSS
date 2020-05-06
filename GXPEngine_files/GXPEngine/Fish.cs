@@ -17,6 +17,7 @@ namespace GXPEngine
         float _radius;
         int isFishHungry = 10000;
         Sprite hungerIcon;
+        public Sprite buyToUnlock;
         public Fish(List<Food> _foodList): base("colors.png")
         {
             foodList = _foodList;
@@ -24,6 +25,11 @@ namespace GXPEngine
             _position = new Vec2(200, 300);
             _radius = width / 2;
             hungerIcon = new Sprite("square.png");
+            buyToUnlock = new Sprite("square.png");
+        }
+        public void Unlock()
+        {
+            isUnlocked = true;
         }
 
         public void AddFood(Food food)

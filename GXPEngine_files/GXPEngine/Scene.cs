@@ -11,6 +11,7 @@ namespace GXPEngine
         Sponge sponge;
         public List<Food> foodList;
         List<Fish> fishListPerScene;
+        Shop shop;
 
         public Scene()
         {
@@ -18,6 +19,7 @@ namespace GXPEngine
             fishListPerScene = new List<Fish>();
             DisplayFishInScene fishes = new DisplayFishInScene(1, foodList, fishListPerScene);
             sponge = new Sponge();
+            shop = new Shop(fishListPerScene);
         }
         void addFish()
         {
@@ -48,10 +50,15 @@ namespace GXPEngine
         }
         void Update()
         {
-            makeFood();
+            if (isShopDisplayed == false)
+            {
+                makeFood();
+
+            }
             makeDirt();
             displaySponge();
             addFish();
+            displayShop();
         }
         void makeDirt()
         {
@@ -85,6 +92,23 @@ namespace GXPEngine
                 }
             } 
                 
+        }
+        bool isShopDisplayed = false;
+        void displayShop()
+        {
+            if (Input.GetKeyDown(Key.SPACE))
+            {
+                if (isShopDisplayed == false)
+                {
+                    AddChild(shop);
+                    isShopDisplayed = true;
+                }
+                else
+                {
+                    RemoveChild(shop);
+                    isShopDisplayed = false;
+                }
+            }
         }
     }
 }

@@ -90,6 +90,7 @@
     <Compile Include="GXPEngine\SoLoud\Soloud.cs" />
     <Compile Include="GXPEngine\SoLoud\SoloudSoundSystem.cs" />
     <Compile Include="Scene.cs" />
+    <Compile Include="Shop.cs" />
     <Compile Include="Sponge.cs" />
     <Compile Include="Vec2.cs" />
   </ItemGroup>
