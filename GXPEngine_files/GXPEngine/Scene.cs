@@ -9,8 +9,6 @@ namespace GXPEngine
     {
 
         Sprite tank, downArrow;
-        //Fish fish1;
-        //Fish fish2;
 
         int timer=1000;
         bool isActive;
@@ -26,12 +24,9 @@ namespace GXPEngine
             downArrow = new Sprite("downarrow.png");
             foodList = new List<Food>();
 
-            //fish1 = new Fish(foodList);
-            //fish2 = new Fish(foodList);
             AddChild(tank);
             AddChild(downArrow);
-            //AddChild(fish1);
-            //AddChild(fish2);
+
 
             fishListPerScene = new List<Fish>();
             DisplayFishInScene fishes = new DisplayFishInScene(1, foodList, fishListPerScene);
