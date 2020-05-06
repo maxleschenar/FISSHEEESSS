@@ -8,24 +8,28 @@ namespace GXPEngine
     class Scene: GameObject
     {
 
-        //Sprite tank, downArrow;
-
+        Sprite tank, downArrow;
+        Level level;
         int timer=1000;
-        bool isActive;
+        public bool isActive;
         Sponge sponge;
         public List<Food> foodList;
         List<Fish> fishListPerScene;
         Shop shop;
 
-        public Scene(string path) : base()
+        public Scene(string path, Level level) : base()
         {
+            visible = false;
+            this.level = level;
             isActive = true;
-            //tank = new Sprite(path);
-            //downArrow = new Sprite("downarrow.png");
+            tank = new Sprite(path);
+            downArrow = new Sprite("downarrow.png");
+            downArrow.SetOrigin(downArrow.width / 2, downArrow.height / 2);
+            downArrow.SetXY(game.width / 2, game.height - 100);
+            downArrow.SetScaleXY(0.2f);
             foodList = new List<Food>();
-
-            //AddChild(tank);
-            //AddChild(downArrow);
+            AddChild(tank);
+            AddChild(downArrow);
 
 
             fishListPerScene = new List<Fish>();
@@ -68,18 +72,9 @@ namespace GXPEngine
                 makeDirt();
                 displaySponge();
                 addFish();
-                //goBack();
+                displayShop();
+                goBack();
             }
-
-            if (isShopDisplayed == false)
-            {
-                makeFood();
-
-            }
-            makeDirt();
-            displaySponge();
-            addFish();
-            displayShop();
 
         }
         void makeDirt()
@@ -95,17 +90,15 @@ namespace GXPEngine
             }
         }
 
-        //void goBack()
-        //{
-        //    if (MyGame.CheckMouseInRect(downArrow))
-        //    {
-        //        isActive = false;
-        //        //tank.alpha = 0f;
-        //        //fish1.alpha = 0f;
-        //        //fish2.alpha = 0f;
-        //        //downArrow.alpha = 0f;
-        //    }
-        //}
+        void goBack()
+        {
+            if (MyGame.CheckMouseInRect(downArrow))
+            {
+                isActive = false;
+                level.isInScene = false;
+                visible = false;
+            }
+        }
 
         bool spongeOnScreen = false;
         void displaySponge()
