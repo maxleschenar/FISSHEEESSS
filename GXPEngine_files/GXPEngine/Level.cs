@@ -10,7 +10,7 @@ public class Level : Sprite
     List<Button> buttons;
     List<Scene> scenes;
     Journal journal;
-    CurrencySystem currencySystem;
+    public CurrencySystem currencySystem;
     public bool isInScene;
     public Level() : base("aquariums.png")
     {

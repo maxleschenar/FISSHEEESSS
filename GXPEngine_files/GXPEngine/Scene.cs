@@ -5,35 +5,25 @@ using System.Text;
 
 namespace GXPEngine
 {
-    class Scene: GameObject
-    {
-
-//<<<<<<< HEAD
-        //Sprite tank, downArrow;
-        
-//=======
+    public class Scene: GameObject
+    {        
         Sprite tank, downArrow;
         Level level;
-//>>>>>>> 31869b4ec1c682aefb308fdece290575e5992185
         int timer=1000;
         public bool isActive;
         Sponge sponge;
         public List<Food> foodList;
         List<Fish> fishListPerScene;
         Shop shop;
-        CurrencySystem _currency;
+        public CurrencySystem _currency;
         int cleanMeter = 0;
 
-//<<<<<<< HEAD
         public Scene(string path, CurrencySystem currency, Level level) : base()
         {
             _currency = currency;
-//=======
-       // public Scene() : base()
-       // {
+
             visible = false;
             this.level = level;
-//>>>>>>> 31869b4ec1c682aefb308fdece290575e5992185
             isActive = true;
             tank = new Sprite(path);
             downArrow = new Sprite("downarrow.png");
@@ -47,7 +37,7 @@ namespace GXPEngine
 
             fishListPerScene = new List<Fish>();
             DisplayFishInScene fishes = new DisplayFishInScene(1, foodList, fishListPerScene);
-            sponge = new Sponge();
+            sponge = new Sponge(this);
             shop = new Shop(fishListPerScene);
         }
         void addFish()
@@ -84,7 +74,8 @@ namespace GXPEngine
                 makeDirt();
                 displaySponge();
                 addFish();
-//<<<<<<< HEAD
+                displayShop();
+                handleMoney();
                 goBack();
             }
         }
@@ -95,20 +86,28 @@ namespace GXPEngine
             {
                 if (fish.isUnlocked == true)
                 {
-                    if (fish.isAdded == false)
+
+                    if (fish.isFishHungry >3000 && cleanMeter < 75)
                     {
-                        AddChild(fish);
-                        fish.isAdded = true;
+                       // Console.WriteLine(fish.FishProgrss);
+
+                        if (fish.FishProgrss >= 3000)
+                        {
+                            Coin coin = new Coin(fish,level);
+                            AddChild(coin);
+                            fish.FishProgrss = 0;
+                           // _currency.AddMoney(fish.coinValue);
+                        }
+                        else
+                        {
+                            fish.FishProgrss += Time.deltaTime;
+                        }
                     }
                 }
             }
-           //if ()
-//=======
-                displayShop();
-                goBack();
-            
 
-//>>>>>>> 31869b4ec1c682aefb308fdece290575e5992185
+                
+                
         }
         void makeDirt()
         {
@@ -116,11 +115,16 @@ namespace GXPEngine
 
             if (timer <= 0)
             {
-                Dirt dirt = new Dirt();
+                Dirt dirt = new Dirt(ref cleanMeter);
                 sponge.addDirt(dirt);
                 AddChild(dirt);
                 timer = 1000;
             }
+        }
+
+        public void removeDirtConsequence(Dirt dirt)
+        {
+            cleanMeter -= dirt.cleanImpact;
         }
 
         void goBack()

@@ -9,12 +9,28 @@ namespace GXPEngine
     {
         public float _radius;
         public Vec2 _position;
-        public Dirt() : base("triangle.png")
+        public int cleanImpact;
+        public Dirt(ref int meter) : base("dirt.png")
         {
             x = Utils.Random(50, game.width - 50);
             y = Utils.Random(50, game.height - 50);
             _position.SetXY(x,y);
+            int type = Utils.Random(1, 100);
+            if (type <= 50)
+            {
+                width /= 5;
+                height /= 5;
+                cleanImpact = 5;
+            }
+            else
+            {
+                width /= 10;
+                height /= 10;
+                cleanImpact = 3;
+            }
+            meter += cleanImpact;
             _radius = width / 2;
+           
         }
     }
 }

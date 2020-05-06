@@ -5,9 +5,9 @@ using System.Text;
 
 namespace GXPEngine
 {
-    class CurrencySystem:GameObject
+    public class CurrencySystem:GameObject
     {
-        int money=0;
+        public int money=0;
         public CurrencySystem()
         {
 
