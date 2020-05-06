@@ -5,7 +5,7 @@ using System.Text;
 
 namespace GXPEngine
 {
-    class Dirt:Sprite
+    public class Dirt:Sprite
     {
         public float _radius;
         public Vec2 _position;
