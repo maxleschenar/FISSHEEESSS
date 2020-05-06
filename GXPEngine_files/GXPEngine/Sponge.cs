@@ -5,7 +5,7 @@ using System.Text;
 
 namespace GXPEngine
 {
-    class Sponge:Sprite
+    public class Sponge:Sprite
     {
         public Vec2 _position;
         float _radius;

@@ -5,7 +5,7 @@ using System.Text;
 
 namespace GXPEngine
 {
-    class Fish: Sprite
+    public class Fish : Sprite
     {
         public List<Food> foodList;
         public bool isAdded = false;
@@ -15,14 +15,15 @@ namespace GXPEngine
         public Vec2 currentPoint = new Vec2(0, 0);
         public Vec2 foodPoint = new Vec2(0, 0);
         float _radius;
-        public Fish(List<Food> _foodList): base("colors.png")
+        int isFishHungry = 10000;
+        Sprite hungerIcon;
+        public Fish(List<Food> _foodList) : base("colors.png")
         {
             foodList = _foodList;
             SetOrigin(width / 2, height / 2);
             _position = new Vec2(200, 300);
             _radius = width / 2;
-            //foodList = new List<Food>();
-
+            hungerIcon = new Sprite("square.png");
         }
 
         public void AddFood(Food food)
@@ -48,9 +49,12 @@ namespace GXPEngine
             if (currentPoint.x != 0 && currentPoint.y != 0)
             {
                 velocity.SetXY(0, 0);
-                if (isFoodPresent())
+                if (isFishHungry <= 5000)
                 {
-                    calcNearestFood();
+                    if (isFoodPresent())
+                    {
+                        calcNearestFood();
+                    }
                 }
                 Vec2 deltaVector = currentPoint - _position;
 
@@ -59,10 +63,12 @@ namespace GXPEngine
                     currentPoint.SetXY(0, 0);
                     if (isFoodPresent())
                     {
-                        if (currentFood != null)
+                        if (currentFood != null && isFishHungry <= 5000)
                         {
                             RemoveFood(currentFood);
                             currentFood.LateDestroy();
+                            isFishHungry += 2000;
+                            Console.WriteLine(isFishHungry);
                         }
 
                     }
@@ -77,14 +83,13 @@ namespace GXPEngine
             }
             else
             {
+                currentPoint.SetXY(Utils.Random(50, game.width - 50), Utils.Random(_position.y - 100, _position.y + 100));
                 if (isFoodPresent())
                 {
-                    calcNearestFood();
-
-                }
-                else
-                {
-                    currentPoint.SetXY(Utils.Random(50, game.width - 50), Utils.Random(_position.y - 100, _position.y + 100));
+                    if (isFishHungry <= 5000)
+                    {
+                        calcNearestFood();
+                    }
                 }
             }
         }
@@ -112,9 +117,19 @@ namespace GXPEngine
         }
         void Update()
         {
-           // Console.WriteLine(currentPoint);
-
+            isFishHungry -= Time.deltaTime;
             move();
+            displayHungerIcon();
+
+        }
+
+        void displayHungerIcon()
+        {
+            if (isFishHungry <= 5000)
+            {
+                AddChild(hungerIcon);
+            }
+            else RemoveChild(hungerIcon);
         }
     }
 }

@@ -15,3 +15,9 @@ D:\school\term_4\final approach\test\FISSHEEESSS\GXPEngine_files\GXPEngine\bin\D
 D:\school\term_4\final approach\test\FISSHEEESSS\GXPEngine_files\GXPEngine\obj\x86\Debug\GXPEngine.csprojAssemblyReference.cache
 D:\school\term_4\final approach\test\FISSHEEESSS\GXPEngine_files\GXPEngine\obj\x86\Debug\GXPEngine.exe
 D:\school\term_4\final approach\test\FISSHEEESSS\GXPEngine_files\GXPEngine\obj\x86\Debug\GXPEngine.pdb
+C:\Users\Valentin Dimitrov\Documents\GitHub\FISSHEEESSS\GXPEngine_files\GXPEngine\bin\Debug\GXPEngine.exe.config
+C:\Users\Valentin Dimitrov\Documents\GitHub\FISSHEEESSS\GXPEngine_files\GXPEngine\bin\Debug\GXPEngine.exe
+C:\Users\Valentin Dimitrov\Documents\GitHub\FISSHEEESSS\GXPEngine_files\GXPEngine\bin\Debug\GXPEngine.pdb
+C:\Users\Valentin Dimitrov\Documents\GitHub\FISSHEEESSS\GXPEngine_files\GXPEngine\obj\x86\Debug\GXPEngine.csprojAssemblyReference.cache
+C:\Users\Valentin Dimitrov\Documents\GitHub\FISSHEEESSS\GXPEngine_files\GXPEngine\obj\x86\Debug\GXPEngine.exe
+C:\Users\Valentin Dimitrov\Documents\GitHub\FISSHEEESSS\GXPEngine_files\GXPEngine\obj\x86\Debug\GXPEngine.pdb

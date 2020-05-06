@@ -5,7 +5,7 @@ using System.Text;
 
 namespace GXPEngine
 {
-    class Food:Sprite
+   public class Food:Sprite
     {
         public Vec2 _position;
         public Food() : base("circle.png")
