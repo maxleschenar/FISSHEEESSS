@@ -29,13 +29,9 @@ namespace GXPEngine
                 {
                     if (fish.isAdded == false)
                     {
-                        AddChild(fish);
+                        AddChildAt(fish,2);
                         fish.isAdded = true;
                     }
-                }
-                if (Input.GetKeyDown(Key.Q))
-                {
-                    fish.isUnlocked = true;
                 }
             }
         }
@@ -44,7 +40,7 @@ namespace GXPEngine
             if (Input.GetMouseButtonDown(button: 0))
             {
                 Food food = new Food();
-                AddChild(food);
+                AddChildAt(food,1);
                 foodList.Add(food);
             }
         }
@@ -68,7 +64,7 @@ namespace GXPEngine
             {
                 Dirt dirt = new Dirt();
                 sponge.addDirt(dirt);
-                AddChild(dirt);
+                AddChildAt(dirt,5);
                 timer = 1000;
             }
         }
