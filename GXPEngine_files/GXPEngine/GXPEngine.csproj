@@ -42,6 +42,7 @@
     <Compile Include="Button.cs" />
     <Compile Include="CollisionInfo.cs" />
     <Compile Include="Dirt.cs" />
+    <Compile Include="DisplayFishInScene.cs" />
     <Compile Include="Fish.cs" />
     <Compile Include="FishTank.cs" />
     <Compile Include="FishWindow.cs" />
