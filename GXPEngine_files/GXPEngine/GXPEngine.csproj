@@ -43,6 +43,8 @@
     <Compile Include="CollisionInfo.cs" />
     <Compile Include="Dirt.cs" />
     <Compile Include="Fish.cs" />
+    <Compile Include="FishTank.cs" />
+    <Compile Include="FishWindow.cs" />
     <Compile Include="Food.cs" />
     <Compile Include="Journal.cs" />
     <Compile Include="Level.cs" />

@@ -5,7 +5,7 @@ using System.Text;
 
 namespace GXPEngine
 {
-    class Fish: Sprite
+   public class Fish: Sprite
     {
         public List<Food> foodList;
         public bool isAdded = false;
