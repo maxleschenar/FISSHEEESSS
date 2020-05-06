@@ -10,20 +10,11 @@ public class MyGame : Game
 
 	public MyGame() : base(1200, 720, false)        // Create a window that's 800x600 and NOT fullscreen
 	{
-//<<<<<<< HEAD
-		//isPlaying = false;
-		//test = new Button(new Vec2(width / 2, height / 2 - 100), "playbutton.png");
-		//AddChild(test);
-		//CurrencySystem money = new CurrencySystem();
-		//Scene scene = new Scene("fishtanksample.png",money);
-		//AddChild(scene);
-//=======
+
 		isPlaying = false;
 		test = new Button(new Vec2(width / 2, height / 2 - 100), "playbutton.png");
 		AddChild(test);
-		//Scene scene = new Scene("fishtanksample.png");
-		//AddChild(scene);
-//>>>>>>> 31869b4ec1c682aefb308fdece290575e5992185
+
 	}
 
 	void Update()

@@ -41,6 +41,7 @@
   <ItemGroup>
     <Compile Include="Button.cs" />
     <Compile Include="CollisionInfo.cs" />
+    <Compile Include="CurrencySystem.cs" />
     <Compile Include="Dirt.cs" />
     <Compile Include="DisplayFishInScene.cs" />
     <Compile Include="Fish.cs" />
