@@ -20,7 +20,6 @@ namespace GXPEngine
         int isFishHungry = 10000;
         Sprite hungerIcon;
 
-        public Fish(List<Food> _foodList) : base("colors.png");
         public Sprite buyToUnlock;
         public Fish(List<Food> _foodList): base("colors.png")
 
