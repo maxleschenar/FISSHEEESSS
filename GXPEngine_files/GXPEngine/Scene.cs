@@ -7,13 +7,17 @@ namespace GXPEngine
 {
     class Scene: GameObject
     {
+
         Sprite tank, downArrow;
         Fish fish1;
         Fish fish2;
+
         int timer=1000;
         bool isActive;
         Sponge sponge;
         public List<Food> foodList;
+        List<Fish> fishListPerScene;
+        Shop shop;
 
         public Scene(string path) : base()
         {
@@ -21,40 +25,31 @@ namespace GXPEngine
             tank = new Sprite(path);
             downArrow = new Sprite("downarrow.png");
             foodList = new List<Food>();
+
             fish1 = new Fish(foodList);
             fish2 = new Fish(foodList);
             AddChild(tank);
             AddChild(downArrow);
             AddChild(fish1);
             AddChild(fish2);
+
+            fishListPerScene = new List<Fish>();
+            DisplayFishInScene fishes = new DisplayFishInScene(1, foodList, fishListPerScene);
             sponge = new Sponge();
+            shop = new Shop(fishListPerScene);
         }
         void addFish()
         {
-            if (fish1.isUnlocked == true)
+            foreach(Fish fish in fishListPerScene)
             {
-                if (fish1.isAdded == false)
+                if (fish.isUnlocked == true)
                 {
-                    AddChild(fish1);
-                    fish1.isAdded = true;
+                    if (fish.isAdded == false)
+                    {
+                        AddChildAt(fish,2);
+                        fish.isAdded = true;
+                    }
                 }
-            }
-            if (fish2.isUnlocked == true)
-            {
-                if (fish2.isAdded == false)
-                {
-                    AddChild(fish2);
-                    fish2.isAdded = true;
-                }
-            }
-            if (Input.GetKeyDown(Key.Q))
-            {
-                fish1.isUnlocked = true;
-            }
-            if (Input.GetKeyDown(Key.E))
-            {
-                Console.WriteLine("fish2");
-                fish2.isUnlocked = true;
             }
         }
         void makeFood()
@@ -62,15 +57,13 @@ namespace GXPEngine
             if (Input.GetMouseButtonDown(button: 0))
             {
                 Food food = new Food();
-                AddChild(food);
+                AddChildAt(food,1);
                 foodList.Add(food);
-                //fish1.AddFood(food);
-                //fish2.AddFood(food);
-
             }
         }
         void Update()
         {
+
             if (isActive)
             {
                 makeFood();
@@ -79,6 +72,17 @@ namespace GXPEngine
                 addFish();
                 goBack();
             }
+
+            if (isShopDisplayed == false)
+            {
+                makeFood();
+
+            }
+            makeDirt();
+            displaySponge();
+            addFish();
+            displayShop();
+
         }
         void makeDirt()
         {
@@ -88,7 +92,7 @@ namespace GXPEngine
             {
                 Dirt dirt = new Dirt();
                 sponge.addDirt(dirt);
-                AddChild(dirt);
+                AddChildAt(dirt,5);
                 timer = 1000;
             }
         }
@@ -125,6 +129,23 @@ namespace GXPEngine
                 }
             } 
                 
+        }
+        bool isShopDisplayed = false;
+        void displayShop()
+        {
+            if (Input.GetKeyDown(Key.SPACE))
+            {
+                if (isShopDisplayed == false)
+                {
+                    AddChild(shop);
+                    isShopDisplayed = true;
+                }
+                else
+                {
+                    RemoveChild(shop);
+                    isShopDisplayed = false;
+                }
+            }
         }
     }
 }

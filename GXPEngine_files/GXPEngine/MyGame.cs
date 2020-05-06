@@ -7,6 +7,7 @@ public class MyGame : Game
 	Button test;
 	Level level;
 	bool isPlaying;
+
 	public MyGame() : base(1200, 720, false)        // Create a window that's 800x600 and NOT fullscreen
 	{
 		isPlaying = false;
@@ -26,6 +27,7 @@ public class MyGame : Game
 		}
 
 	}
+
 
 	static void Main()                          // Main() is the first method that's called when the program is run
 	{
