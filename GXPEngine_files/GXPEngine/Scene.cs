@@ -9,16 +9,19 @@ namespace GXPEngine
     {
 
         //Sprite tank, downArrow;
-
+        
         int timer=1000;
         bool isActive;
         Sponge sponge;
         public List<Food> foodList;
         List<Fish> fishListPerScene;
         Shop shop;
+        CurrencySystem _currency;
+        int cleanMeter = 0;
 
-        public Scene(string path) : base()
+        public Scene(string path, CurrencySystem currency) : base()
         {
+            _currency = currency;
             isActive = true;
             //tank = new Sprite(path);
             //downArrow = new Sprite("downarrow.png");
@@ -58,7 +61,6 @@ namespace GXPEngine
         }
         void Update()
         {
-
             if (isActive)
             {
                 if (isShopDisplayed == false)
@@ -70,17 +72,22 @@ namespace GXPEngine
                 addFish();
                 //goBack();
             }
+        }
 
-            if (isShopDisplayed == false)
+        void handleMoney()
+        {
+            foreach (Fish fish in fishListPerScene)
             {
-                makeFood();
-
+                if (fish.isUnlocked == true)
+                {
+                    if (fish.isAdded == false)
+                    {
+                        AddChild(fish);
+                        fish.isAdded = true;
+                    }
+                }
             }
-            makeDirt();
-            displaySponge();
-            addFish();
-            displayShop();
-
+           //if ()
         }
         void makeDirt()
         {
