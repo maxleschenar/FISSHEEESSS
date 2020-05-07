@@ -43,6 +43,7 @@ namespace GXPEngine
             DisplayFishInScene fishes = new DisplayFishInScene(scene, foodList, fishListPerScene);
             sponge = new Sponge(this);
             shop = new Shop(fishListPerScene, level);
+
         }
         void addFish()
         {
@@ -71,6 +72,8 @@ namespace GXPEngine
         {
             if (isActive)
             {
+                canMakeFood = true;
+
                 if (isShopDisplayed == false)
                 {
                     makeFood();
@@ -78,7 +81,7 @@ namespace GXPEngine
                 makeDirt();
                 displaySponge();
                 addFish();
-
+               // Console.WriteLine("shop?");
                 displayShop();
                 handleMoney();
                 goBack();
@@ -95,7 +98,7 @@ namespace GXPEngine
                     if (fish.isFishHungry >3000 && cleanMeter < 75)
                     {
                         // Console.WriteLine(fish.FishProgrss);
-                        Console.WriteLine(fish.FishProgrss);
+                        //Console.WriteLine(fish.FishProgrss);
                         if (fish.FishProgrss >= 3000)
                         {
                             Coin coin = new Coin(fish,level);
@@ -112,7 +115,6 @@ namespace GXPEngine
                     }
                 }
             }
-
             
         }
         void makeDirt()
@@ -175,6 +177,7 @@ namespace GXPEngine
         bool isShopDisplayed = false;
         void displayShop()
         {
+            
             if (Input.GetKeyDown(Key.SPACE))
             {
                 if (isShopDisplayed == false || !HasChild(shop))

@@ -38,6 +38,11 @@ namespace GXPEngine
                         fish.Unlock();
                         _level.journal.AddFish(fish);
                         Console.WriteLine("Fish bought type is " + fish.GetFishType());
+                        if (fish.isUnlocked == false)
+                        {
+                            _level.currencySystem.RemoveMoney(fish.coinValue);
+                            fish.Unlock();
+                        }
                     }
                 }
 

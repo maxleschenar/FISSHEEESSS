@@ -30,6 +30,8 @@ public class Level : Sprite
 
     void Update()
     {
+        Console.WriteLine(currencySystem.money);
+
         if (!isInScene)
         {
             for (int i = 0; i < buttons.Count; i++)
