@@ -5,6 +5,7 @@ using System.Text;
 
 namespace GXPEngine
 {
+
     public class Scene: GameObject
     {        
         Sprite tank, downArrow;
@@ -21,7 +22,6 @@ namespace GXPEngine
         public Scene(string path, CurrencySystem currency, Level level) : base()
         {
             _currency = currency;
-
             visible = false;
             this.level = level;
             isActive = true;
@@ -74,6 +74,7 @@ namespace GXPEngine
                 makeDirt();
                 displaySponge();
                 addFish();
+
                 displayShop();
                 handleMoney();
                 goBack();
@@ -108,8 +109,9 @@ namespace GXPEngine
                 }
             }
 
-                
-                
+                displayShop();
+                goBack();
+            
         }
         void makeDirt()
         {
