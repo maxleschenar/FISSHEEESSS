@@ -17,7 +17,7 @@ public class Level : Sprite
         isInScene = false;
         buttons = new List<Button>();
         scenes = new List<Scene>();
-        journal = new Journal();
+        journal = new Journal(this);
         currencySystem = new CurrencySystem();
         AddButton(new Button(new Vec2(100, game.height / 2), "group1.png"));
         AddButton(new Button(new Vec2(game.width / 2 - 50, game.height / 2), "group1.png"));
@@ -59,6 +59,10 @@ public class Level : Sprite
         buttons.Add(button);
     }
 
+    public CurrencySystem GetCurrencySystem()
+    {
+        return currencySystem;
+    }
 
 }
 
