@@ -8,9 +8,11 @@ namespace GXPEngine
     class Shop:GameObject
     {
         List<Fish> fishList;
-        public Shop(List<Fish> fishListOfTank)
+        Level _level;
+        public Shop(List<Fish> fishListOfTank,Level level)
         {
             int i = 1;
+            _level = level;
             fishList = fishListOfTank;
             foreach(Fish fish in fishListOfTank)
             {
