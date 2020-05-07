@@ -6,16 +6,16 @@ using System.Text;
 namespace GXPEngine
 {
 
-   public class Fish: Sprite
+   public class Fish: AnimationSprite
 
     {
         public List<Food> foodList;
         public bool isAdded = false;
         public bool isUnlocked = false;
         Vec2 _position;
-        public Vec2 velocity;
-        public Vec2 currentPoint = new Vec2(0, 0);
-        public Vec2 foodPoint = new Vec2(0, 0);
+        Vec2 velocity;
+        Vec2 currentPoint = new Vec2(0, 0);
+        Vec2 foodPoint = new Vec2(0, 0);
         float _radius;
         public int isFishHungry = 10000;
         Sprite hungerIcon;
@@ -24,19 +24,23 @@ namespace GXPEngine
 
 
         public int coinValue=200;
+        int timer;
 
+        string fishName, description, type;
 
         public Sprite buyToUnlock;
 
-        public Fish(List<Food> _foodList) : base("colors.png")
+        public Fish(List<Food> _foodList, string type, string fishName, string description) : base("European  Perch.png", 6, 1, 6)
         {
             foodList = _foodList;
-
+            this.type = type;
+            this.fishName = fishName;
+            this.description = description;
             SetOrigin(width / 2, height / 2);
             _position = new Vec2(200, 300);
             _radius = width / 2;
             hungerIcon = new Sprite("square.png");
-
+            timer = 100;
             buyToUnlock = new Sprite("square.png");
         }
         public void Unlock()
@@ -135,6 +139,12 @@ namespace GXPEngine
         void Update()
         {
             isFishHungry -= Time.deltaTime;
+            timer -= Time.deltaTime;
+            if(timer < 0)
+            {
+                NextFrame();
+                timer = 100;
+            }
             move();
             displayHungerIcon();
 
@@ -148,5 +158,10 @@ namespace GXPEngine
             }
             else RemoveChild(hungerIcon);
         }
+        public string GetFishType()
+        {
+            return type;
+        }
     }
+
 }
