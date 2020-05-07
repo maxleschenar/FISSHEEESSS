@@ -10,10 +10,11 @@ public class Journal : GameObject
     Sprite journal;
     List<Fish> freshFish, seaFish, deepFish;
     Canvas canvas;
+    Level level;
     public bool inWindow;
-    public Journal() : base()
+    public Journal(Level level) : base()
     {
-
+        this.level = level;
         freshFish = new List<Fish>();
         
         seaFish = new List<Fish>();
@@ -50,10 +51,12 @@ public class Journal : GameObject
         if (inWindow)
         {
             canvas.graphics.Clear(Color.Transparent);
+            canvas.graphics.DrawString("FRESH WATER FISH", SystemFonts.MenuFont, Brushes.Black, journal.x + 50, journal.y + 150);
             for(int i = 0; i < freshFish.Count; i++)
             {
-                canvas.graphics.DrawString(freshFish[i].GetFishName(), SystemFonts.DefaultFont, Brushes.Black, journal.x + 50, journal.y + 150 + 25 * i);
+                canvas.graphics.DrawString(freshFish[i].GetFishName(), SystemFonts.DefaultFont, Brushes.Black, journal.x + 50, journal.y + 170 + 25 * i);
             }
+            canvas.graphics.DrawString("CASH YOU HAVE: " + level.GetCurrencySystem().money.ToString(), SystemFonts.DefaultFont, Brushes.Black, game.width/2 + 200, game.height - 150);
             if (MyGame.CheckMouseInRectClick(close))
             {
                 close.alpha = 0f;
