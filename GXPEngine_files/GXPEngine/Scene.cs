@@ -61,8 +61,6 @@ namespace GXPEngine
                 AddChild(dirt);
             }
 
-            // AddChild(inv);
-
         }
         void addFish()
         {
@@ -242,23 +240,13 @@ namespace GXPEngine
         void displayShop()
         {
             
-//<<<<<<< HEAD
 
                 if (isShopDisplayed == false)
-//=======
-            //if (Input.GetKeyDown(Key.SPACE))
-           // {
-               // if (isShopDisplayed == false || !HasChild(shop))
-//>>>>>>> 9ec9b0844e97dc6d221fd4297b2c139ffc277aff
+
                 {
                     AddChild(shop);
                     isShopDisplayed = true;
                 }
-                //else
-                //{
-                //    RemoveChild(shop);
-                //    isShopDisplayed = false;
-                //}
             
         }
         void RemoveShop()

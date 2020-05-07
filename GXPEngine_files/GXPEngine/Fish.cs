@@ -6,7 +6,7 @@ using System.Text;
 namespace GXPEngine
 {
 
-   public class Fish: AnimationSprite
+    public class Fish : AnimationSprite
 
     {
         public List<Food> foodList;
@@ -21,14 +21,14 @@ namespace GXPEngine
         Sprite hungerIcon;
         public int FishProgrss = 0;
 
-        public int coinValue=200;
+        public int coinValue = 200;
         int timer;
 
         string fishName, description, type;
 
         public Sprite buyToUnlock;
 
-        public Fish(List<Food> _foodList, string type, string fishName, string description) : base("European  Perch.png", 6, 1, 6)
+        public Fish(List<Food> _foodList, int frames, string type, string fishName, string description) : base(fishName + ".png", frames, 1, frames)
         {
             foodList = _foodList;
             this.type = type;
@@ -88,7 +88,7 @@ namespace GXPEngine
                     currentPoint.SetXY(0, 0);
                     if (isFoodPresent())
                     {
-                        if (currentFood != null&& isFishHungry <= 3000)
+                        if (currentFood != null && isFishHungry <= 3000)
                         {
                             RemoveFood(currentFood);
                             currentFood.LateDestroy();
@@ -118,6 +118,18 @@ namespace GXPEngine
             }
         }
 
+        void CheckBoundaries()
+        {
+            if (_position.x + width / 2 > game.width || _position.x - width / 2 < 0)
+            {
+                velocity.x = -velocity.x;
+            }
+            if (_position.y - width / 2 < 0 || _position.y + width / 2 > game.height)
+            {
+                velocity.y = -velocity.y;
+            }
+        }
+
         private void calcNearestFood()
         {
             float minDist = game.width;
@@ -139,15 +151,21 @@ namespace GXPEngine
             _position += velocity;
             UpdateScreenPosition();
         }
-        void Update()
+
+        void handleAnimation()
         {
-            isFishHungry -= Time.deltaTime;
             timer -= Time.deltaTime;
-            if(timer < 0)
+            if (timer < 0)
             {
                 NextFrame();
                 timer = 100;
             }
+        }
+
+        void Update()
+        {
+            isFishHungry -= Time.deltaTime;
+            handleAnimation();
             move();
             displayHungerIcon();
 
