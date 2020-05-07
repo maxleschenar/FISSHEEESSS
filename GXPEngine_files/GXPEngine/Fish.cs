@@ -22,7 +22,7 @@ namespace GXPEngine
         public int FishProgrss = 0;
         Journal journal;
 
-        public int FishProgrss = 2000;
+        //public int FishProgrss = 2000;
         public int coinValue=200;
 
 

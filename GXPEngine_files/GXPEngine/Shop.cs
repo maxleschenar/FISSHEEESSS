@@ -35,6 +35,7 @@ namespace GXPEngine
                         Input.mouseY > fish.buyToUnlock.y &&
                         Input.mouseY < fish.buyToUnlock.y + fish.buyToUnlock.height)
                     {
+                        _level.currencySystem.RemoveMoney(fish.coinValue);
                         fish.Unlock();
                     }
                 }
