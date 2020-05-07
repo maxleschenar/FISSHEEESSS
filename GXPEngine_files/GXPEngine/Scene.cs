@@ -94,14 +94,16 @@ namespace GXPEngine
 
                     if (fish.isFishHungry >3000 && cleanMeter < 75)
                     {
-                       // Console.WriteLine(fish.FishProgrss);
-
+                        // Console.WriteLine(fish.FishProgrss);
+                        Console.WriteLine(fish.FishProgrss);
                         if (fish.FishProgrss >= 3000)
                         {
                             Coin coin = new Coin(fish,level);
                             AddChild(coin);
                             fish.FishProgrss = 0;
-                           // _currency.AddMoney(fish.coinValue);
+                            //Console.WriteLine(fish.FishProgrss);
+
+                            // _currency.AddMoney(fish.coinValue);
                         }
                         else
                         {

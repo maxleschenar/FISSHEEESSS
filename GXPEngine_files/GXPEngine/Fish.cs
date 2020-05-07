@@ -19,16 +19,18 @@ namespace GXPEngine
         float _radius;
         public int isFishHungry = 10000;
         Sprite hungerIcon;
+        public int FishProgrss = 0;
         Journal journal;
 
-        public int FishProgrss = 2000;
         public int coinValue=200;
 
 
         public Sprite buyToUnlock;
-        public Fish(List<Food> _foodList): base("colors.png")
+
+        public Fish(List<Food> _foodList) : base("colors.png")
         {
             foodList = _foodList;
+
             SetOrigin(width / 2, height / 2);
             _position = new Vec2(200, 300);
             _radius = width / 2;
