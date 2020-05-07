@@ -26,10 +26,9 @@ namespace GXPEngine
 
 
         public Sprite buyToUnlock;
-        public Fish(List<Food> _foodList, Journal journal): base("colors.png")
+        public Fish(List<Food> _foodList): base("colors.png")
         {
             foodList = _foodList;
-            this.journal = journal;
             SetOrigin(width / 2, height / 2);
             _position = new Vec2(200, 300);
             _radius = width / 2;

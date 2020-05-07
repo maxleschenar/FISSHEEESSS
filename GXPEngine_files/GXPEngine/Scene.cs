@@ -12,6 +12,7 @@ namespace GXPEngine
         Level level;
         int timer=1000;
         public bool isActive;
+        bool canMakeFood;
         Sponge sponge;
         public List<Food> foodList;
         List<Fish> fishListPerScene;
@@ -24,7 +25,8 @@ namespace GXPEngine
             _currency = currency;
             visible = false;
             this.level = level;
-            isActive = true;
+            isActive = false;
+            canMakeFood = true;
             tank = new Sprite(path);
             downArrow = new Sprite("downarrow.png");
 
@@ -56,7 +58,7 @@ namespace GXPEngine
         }
         void makeFood()
         {
-            if (Input.GetMouseButtonDown(button: 0))
+            if (Input.GetMouseButtonDown(button: 0) && canMakeFood)
             {
                 Food food = new Food();
                 AddChildAt(food,1);
@@ -67,6 +69,8 @@ namespace GXPEngine
         {
             if (isActive)
             {
+                canMakeFood = true;
+                Console.WriteLine(canMakeFood);
                 if (isShopDisplayed == false)
                 {
                     makeFood();
@@ -132,6 +136,10 @@ namespace GXPEngine
         void goBack()
         {
             if (MyGame.CheckMouseInRect(downArrow))
+            {
+                canMakeFood = false;
+            }
+            if (MyGame.CheckMouseInRectClick(downArrow))
             {
                 isActive = false;
                 level.isInScene = false;

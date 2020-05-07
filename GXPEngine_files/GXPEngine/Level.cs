@@ -34,7 +34,7 @@ public class Level : Sprite
         {
             for (int i = 0; i < buttons.Count; i++)
             {
-                if (MyGame.CheckMouseInRect(buttons[i]))
+                if (MyGame.CheckMouseInRectClick(buttons[i]))
                 {
                     scenes[i].visible = true;
                     scenes[i].isActive = true;

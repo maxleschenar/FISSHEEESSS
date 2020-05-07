@@ -35,7 +35,7 @@ public class Journal : GameObject
             {
                 fish.alpha = 0f;
             }
-            if (MyGame.CheckMouseInRect(journalButton))
+            if (MyGame.CheckMouseInRectClick(journalButton))
             {
                 journal.alpha = 1f;
                 close.alpha = 1f;
@@ -50,7 +50,7 @@ public class Journal : GameObject
                 fish.alpha = 1f;
             }
 
-            if (MyGame.CheckMouseInRect(close))
+            if (MyGame.CheckMouseInRectClick(close))
             {
                 close.alpha = 0f;
                 journal.alpha = 0f;
