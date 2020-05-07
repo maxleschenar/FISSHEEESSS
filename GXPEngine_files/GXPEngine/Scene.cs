@@ -43,14 +43,10 @@ namespace GXPEngine
             fishListPerScene = new List<Fish>();
             DisplayFishInScene fishes = new DisplayFishInScene(scene, foodList, fishListPerScene);
             sponge = new Sponge(this);
-//<<<<<<< HEAD
             shop = new Shop(fishListPerScene,level);
              inv = new Inventory();
             AddChild(inv);
-//=======
-            //shop = new Shop(fishListPerScene, level);
 
-//>>>>>>> 9ec9b0844e97dc6d221fd4297b2c139ffc277aff
         }
         void addFish()
         {
@@ -80,12 +76,8 @@ namespace GXPEngine
             if (isActive)
             {
                 canMakeFood = true;
-//<<<<<<< HEAD
                 switch (inv.id)
-//=======
 
-                //if (isShopDisplayed == false)
-//>>>>>>> 9ec9b0844e97dc6d221fd4297b2c139ffc277aff
                 {
                     case Inventory.Food:
                         makeFood();
@@ -212,23 +204,13 @@ namespace GXPEngine
         void displayShop()
         {
             
-//<<<<<<< HEAD
 
                 if (isShopDisplayed == false)
-//=======
-            //if (Input.GetKeyDown(Key.SPACE))
-           // {
-               // if (isShopDisplayed == false || !HasChild(shop))
-//>>>>>>> 9ec9b0844e97dc6d221fd4297b2c139ffc277aff
+
                 {
                     AddChild(shop);
                     isShopDisplayed = true;
                 }
-                //else
-                //{
-                //    RemoveChild(shop);
-                //    isShopDisplayed = false;
-                //}
             
         }
         void RemoveShop()
