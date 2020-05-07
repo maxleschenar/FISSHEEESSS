@@ -2,20 +2,17 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using System.Drawing;
 using GXPEngine;
 public class Journal : GameObject
 {
     Sprite journalButton, close;
     Sprite journal;
     List<Fish> freshFish, seaFish, deepFish;
-    Canvas canvas;
     public bool inWindow;
     public Journal() : base()
     {
 
         freshFish = new List<Fish>();
-        
         seaFish = new List<Fish>();
         deepFish = new List<Fish>();
         journalButton = new Sprite("journalbutton.png");
@@ -23,11 +20,9 @@ public class Journal : GameObject
         close = new Sprite("jurnalClose.png");
         journal = new Sprite("journalitself.png");
         journal.SetXY(100, 100);
-        canvas = new Canvas(journal.width, journal.height);
         close.SetXY(journal.x + journal.width - close.width, journal.y);
         AddChild(journalButton);
         AddChild(journal);
-        AddChild(canvas);
         AddChild(close);
         journal.alpha = 0f;
         close.alpha = 0f;
@@ -38,28 +33,47 @@ public class Journal : GameObject
     {
         if (!inWindow)
         {
-            canvas.graphics.Clear(Color.Transparent);
+
             if (MyGame.CheckMouseInRectClick(journalButton))
             {
                 journal.alpha = 1f;
                 close.alpha = 1f;
                 inWindow = true;
+                foreach (Fish f in freshFish)
+                {
+                    f.buyToUnlock.alpha = 0f;
+                }
+                foreach (Fish f in seaFish)
+                {
+                    f.buyToUnlock.alpha = 0f;
+                }
+                foreach (Fish f in deepFish)
+                {
+                    f.buyToUnlock.alpha = 0f;
+                }
             }
         }
 
         if (inWindow)
         {
-            canvas.graphics.Clear(Color.Transparent);
-            for(int i = 0; i < freshFish.Count; i++)
-            {
-                canvas.graphics.DrawString(freshFish[i].GetFishName(), SystemFonts.DefaultFont, Brushes.Black, journal.x + 50, journal.y + 150 + 25 * i);
-            }
+
             if (MyGame.CheckMouseInRectClick(close))
             {
                 close.alpha = 0f;
                 journal.alpha = 0f;
                 inWindow = false;
-
+                foreach (Fish f in freshFish)
+                {
+                    f.buyToUnlock.alpha = 1f;
+                }
+                foreach (Fish f in seaFish)
+                {
+                    f.buyToUnlock.alpha = 1f;
+                }
+                foreach (Fish f in deepFish)
+                {
+                    f.buyToUnlock.alpha = 1f;
+                }
             }
         }
     }
@@ -79,8 +93,8 @@ public class Journal : GameObject
                 deepFish.Add(fish);
                 break;
         }
-    }
 
+    }
 
 }
 
