@@ -37,7 +37,6 @@ namespace GXPEngine
                             _level.currencySystem.RemoveMoney(fish.coinValue);
                             fish.Unlock();
                             _level.journal.AddFish(fish);
-                            
                         }
                     }
                 }
