@@ -17,6 +17,7 @@ namespace GXPEngine
         public List<Food> foodList;
         List<Fish> fishListPerScene;
         Shop shop;
+        Inventory inv;
         public CurrencySystem _currency;
         int cleanMeter = 0;
 
@@ -41,6 +42,8 @@ namespace GXPEngine
             DisplayFishInScene fishes = new DisplayFishInScene(1, foodList, fishListPerScene);
             sponge = new Sponge(this);
             shop = new Shop(fishListPerScene,level);
+             inv = new Inventory();
+            AddChild(inv);
         }
         void addFish()
         {
@@ -70,17 +73,29 @@ namespace GXPEngine
             if (isActive)
             {
                 canMakeFood = true;
-               // Console.WriteLine(canMakeFood);
-                if (isShopDisplayed == false)
+                switch (inv.id)
                 {
-                    makeFood();
+                    case Inventory.Food:
+                        makeFood();
+                        RemoveShop();
+                        RemoveSponge();
+                        break;
+                    case Inventory.Sponge:
+                        displaySponge();
+                        RemoveShop();
+                        break;
+                    case Inventory.Shop:
+                        displayShop();
+                        RemoveSponge();
+                        break;
+                    case 0:
+                        RemoveShop();
+                        RemoveSponge();
+                        handleMoney();
+                        break;
                 }
                 makeDirt();
-                displaySponge();
                 addFish();
-               // Console.WriteLine("shop?");
-                displayShop();
-                handleMoney();
                 goBack();
             }
         }
@@ -149,40 +164,61 @@ namespace GXPEngine
         bool spongeOnScreen = false;
         void displaySponge()
         {
-            if (Input.GetMouseButton(button: 1))
-            {
+            //if (Input.GetMouseButton(button: 1))
+            //{
                 if (spongeOnScreen == false)
                 {
                     AddChild(sponge);
                     spongeOnScreen = true;
                 }
-            }
-            else
-            {
-                if (spongeOnScreen == true)
-                {
-                    RemoveChild(sponge);
-                    spongeOnScreen = false;
-                }
-            } 
+               // else
+                //{
+               //RemoveChild(sponge);
+                //spongeOnScreen = false;
+            //}
+            //}
+            //else
+            //{
+                //if (spongeOnScreen == true)
+                //{
+                    
+                //}
+            //} 
                 
+        }
+        void RemoveSponge()
+        {
+            if (spongeOnScreen == true)
+            {
+                RemoveChild(sponge);
+                spongeOnScreen = false;
+            }
+
+
         }
         bool isShopDisplayed = false;
         void displayShop()
         {
             
-            if (Input.GetKeyDown(Key.SPACE))
-            {
+
                 if (isShopDisplayed == false)
                 {
                     AddChild(shop);
                     isShopDisplayed = true;
                 }
-                else
-                {
-                    RemoveChild(shop);
-                    isShopDisplayed = false;
-                }
+                //else
+                //{
+                //    RemoveChild(shop);
+                //    isShopDisplayed = false;
+                //}
+            
+        }
+        void RemoveShop()
+        {
+            if (isShopDisplayed == true)
+            {
+                RemoveChild(shop);
+                isShopDisplayed = false;
             }
         }
     }
