@@ -35,7 +35,6 @@ namespace GXPEngine
                         Input.mouseY < this.y + this.height)
                     {
 
-                        Console.WriteLine(colected == false);
                         this.LateDestroy();
 
                         colected = true;

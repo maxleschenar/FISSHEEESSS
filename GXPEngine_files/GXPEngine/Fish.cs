@@ -19,7 +19,7 @@ namespace GXPEngine
         float _radius;
         public int isFishHungry = 10000;
         Sprite hungerIcon;
-        public int FishProgrss = 2000;
+        public int FishProgrss = 0;
         public int coinValue=200;
 
         public Sprite buyToUnlock;
