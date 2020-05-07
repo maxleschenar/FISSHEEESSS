@@ -70,7 +70,7 @@ namespace GXPEngine
             if (isActive)
             {
                 canMakeFood = true;
-                Console.WriteLine(canMakeFood);
+               // Console.WriteLine(canMakeFood);
                 if (isShopDisplayed == false)
                 {
                     makeFood();
@@ -78,7 +78,7 @@ namespace GXPEngine
                 makeDirt();
                 displaySponge();
                 addFish();
-
+               // Console.WriteLine("shop?");
                 displayShop();
                 handleMoney();
                 goBack();
@@ -170,6 +170,7 @@ namespace GXPEngine
         bool isShopDisplayed = false;
         void displayShop()
         {
+            
             if (Input.GetKeyDown(Key.SPACE))
             {
                 if (isShopDisplayed == false)
