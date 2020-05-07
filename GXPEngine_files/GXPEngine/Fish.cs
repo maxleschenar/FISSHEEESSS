@@ -17,9 +17,13 @@ namespace GXPEngine
         public Vec2 currentPoint = new Vec2(0, 0);
         public Vec2 foodPoint = new Vec2(0, 0);
         float _radius;
-        int isFishHungry = 10000;
+        public int isFishHungry = 10000;
         Sprite hungerIcon;
         Journal journal;
+
+        public int FishProgrss = 2000;
+        public int coinValue=200;
+
 
         public Sprite buyToUnlock;
         public Fish(List<Food> _foodList, Journal journal): base("colors.png")
@@ -80,7 +84,6 @@ namespace GXPEngine
                             RemoveFood(currentFood);
                             currentFood.LateDestroy();
                             isFishHungry += 4000;
-                            Console.WriteLine(isFishHungry);
                         }
 
                     }

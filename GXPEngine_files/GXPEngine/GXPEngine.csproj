@@ -40,6 +40,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Button.cs" />
+    <Compile Include="Coin.cs" />
     <Compile Include="CollisionInfo.cs" />
     <Compile Include="CurrencySystem.cs" />
     <Compile Include="Dirt.cs" />

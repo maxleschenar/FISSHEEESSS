@@ -10,8 +10,8 @@ namespace GXPEngine
         public Vec2 _position;
         float _radius;
         List<Dirt> dirtList;
-
-        public Sponge() : base("sponge.png")
+        Scene _currentScene;
+        public Sponge(Scene currentScene) : base("sponge.png")
         {
             SetOrigin(width / 2, height / 2);
 
@@ -19,6 +19,7 @@ namespace GXPEngine
             height /= 20;
             _radius = width / 2;
             dirtList = new List<Dirt>();
+            _currentScene = currentScene;
         }
 
         public void addDirt(Dirt dirt)
@@ -48,6 +49,7 @@ namespace GXPEngine
                 Vec2 relativePosition = _position - mover._position;
                 if (relativePosition.Magnitude() < _radius + mover._radius)
                 {
+                    _currentScene.removeDirtConsequence(mover);
                     removeDirt(mover);
                     mover.LateDestroy();
                    // return true;
