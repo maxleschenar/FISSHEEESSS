@@ -19,11 +19,13 @@ namespace GXPEngine
         float _radius;
         int isFishHungry = 10000;
         Sprite hungerIcon;
+        Journal journal;
 
         public Sprite buyToUnlock;
-        public Fish(List<Food> _foodList): base("colors.png")
+        public Fish(List<Food> _foodList, Journal journal): base("colors.png")
         {
             foodList = _foodList;
+            this.journal = journal;
             SetOrigin(width / 2, height / 2);
             _position = new Vec2(200, 300);
             _radius = width / 2;
