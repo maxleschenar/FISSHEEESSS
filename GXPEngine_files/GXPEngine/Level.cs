@@ -9,7 +9,7 @@ public class Level : Sprite
 {
     List<Button> buttons;
     List<Scene> scenes;
-    Journal journal;
+    public Journal journal;
     public CurrencySystem currencySystem;
     public bool isInScene;
     public Level() : base("aquariums.png")
@@ -22,9 +22,9 @@ public class Level : Sprite
         AddButton(new Button(new Vec2(100, game.height / 2), "group1.png"));
         AddButton(new Button(new Vec2(game.width / 2 - 50, game.height / 2), "group1.png"));
         AddButton(new Button(new Vec2(game.width - 200, game.height / 2), "group1.png"));
-        AddScene(new Scene("fishtanksample.png", currencySystem, this));
-        AddScene(new Scene("empty_tank2.jpg", currencySystem, this));
-        AddScene(new Scene("fishtank3.jpg", currencySystem, this));
+        AddScene(new Scene("fishtanksample.png", currencySystem, this, 1));
+        AddScene(new Scene("empty_tank2.jpg", currencySystem, this, 2));
+        AddScene(new Scene("fishtank3.jpg", currencySystem, this, 3));
         AddChild(journal);
     }
 

@@ -7,11 +7,14 @@ public class Journal : GameObject
 {
     Sprite journalButton, close;
     Sprite journal;
-    List<Sprite> fishes;
+    List<Fish> freshFish, seaFish, deepFish;
     public bool inWindow;
     public Journal() : base()
     {
-        fishes = new List<Sprite>();
+
+        freshFish = new List<Fish>();
+        seaFish = new List<Fish>();
+        deepFish = new List<Fish>();
         journalButton = new Sprite("journalbutton.png");
         journalButton.SetXY(game.width - 250, game.height - 200);
         close = new Sprite("jurnalClose.png");
@@ -24,16 +27,23 @@ public class Journal : GameObject
         journal.alpha = 0f;
         close.alpha = 0f;
         inWindow = false;
-        AddFish(new Sprite("Sturgeon.png"), journal.x + 600, journal.y + 150);
     }
 
     void Update()
     {
         if (!inWindow)
         {
-            foreach (Sprite fish in fishes)
+            foreach (Fish f in freshFish)
             {
-                fish.alpha = 0f;
+                f.buyToUnlock.alpha = 0f;
+            }
+            foreach (Fish f in seaFish)
+            {
+                f.buyToUnlock.alpha = 0f;
+            }
+            foreach (Fish f in deepFish)
+            {
+                f.buyToUnlock.alpha = 0f;
             }
             if (MyGame.CheckMouseInRectClick(journalButton))
             {
@@ -45,11 +55,18 @@ public class Journal : GameObject
 
         if (inWindow)
         {
-            foreach (Sprite fish in fishes)
+            foreach(Fish f in freshFish)
             {
-                fish.alpha = 1f;
+                f.buyToUnlock.alpha = 1f;
             }
-
+            foreach (Fish f in seaFish)
+            {
+                f.buyToUnlock.alpha = 1f;
+            }
+            foreach (Fish f in deepFish)
+            {
+                f.buyToUnlock.alpha = 1f;
+            }
             if (MyGame.CheckMouseInRectClick(close))
             {
                 close.alpha = 0f;
@@ -59,12 +76,22 @@ public class Journal : GameObject
         }
     }
 
-    public void AddFish(Sprite fish, float x, float y)
+    public void AddFish(Fish fish)
     {
-        fish.SetScaleXY(0.1f);
-        fish.SetXY(x, y);
         AddChild(fish);
-        fishes.Add(fish);
+        switch (fish.GetFishType())
+        {
+            case "Fresh water":
+                freshFish.Add(fish);
+                break;
+            case "Sea water":
+                seaFish.Add(fish);
+                break;
+            case "Deep water":
+                deepFish.Add(fish);
+                break;
+        }
+
     }
 
 }

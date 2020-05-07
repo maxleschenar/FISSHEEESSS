@@ -34,6 +34,7 @@ namespace GXPEngine
                         Input.mouseY > this.y &&
                         Input.mouseY < this.y + this.height)
                     {
+                        //Console.WriteLine("coin");
                         this.LateDestroy();
                         colected = true;
                         _scene.currencySystem.AddMoney(value);

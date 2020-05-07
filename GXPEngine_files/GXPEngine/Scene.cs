@@ -19,9 +19,11 @@ namespace GXPEngine
         Shop shop;
         public CurrencySystem _currency;
         int cleanMeter = 0;
+        int scene;
 
-        public Scene(string path, CurrencySystem currency, Level level) : base()
+        public Scene(string path, CurrencySystem currency, Level level, int scene) : base()
         {
+            this.scene = scene;
             _currency = currency;
             visible = false;
             this.level = level;
@@ -38,9 +40,9 @@ namespace GXPEngine
 
 
             fishListPerScene = new List<Fish>();
-            DisplayFishInScene fishes = new DisplayFishInScene(1, foodList, fishListPerScene);
+            DisplayFishInScene fishes = new DisplayFishInScene(scene, foodList, fishListPerScene);
             sponge = new Sponge(this);
-            shop = new Shop(fishListPerScene);
+            shop = new Shop(fishListPerScene, level);
         }
         void addFish()
         {
@@ -69,8 +71,6 @@ namespace GXPEngine
         {
             if (isActive)
             {
-                canMakeFood = true;
-                Console.WriteLine(canMakeFood);
                 if (isShopDisplayed == false)
                 {
                     makeFood();
@@ -113,8 +113,6 @@ namespace GXPEngine
                 }
             }
 
-                displayShop();
-                goBack();
             
         }
         void makeDirt()
@@ -146,6 +144,10 @@ namespace GXPEngine
                 isActive = false;
                 level.isInScene = false;
                 visible = false;
+                if(shop != null)
+                {
+                    RemoveChild(shop);
+                }
             }
         }
 
@@ -175,7 +177,7 @@ namespace GXPEngine
         {
             if (Input.GetKeyDown(Key.SPACE))
             {
-                if (isShopDisplayed == false)
+                if (isShopDisplayed == false || !HasChild(shop))
                 {
                     AddChild(shop);
                     isShopDisplayed = true;

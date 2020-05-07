@@ -36,6 +36,8 @@ namespace GXPEngine
                         Input.mouseY < fish.buyToUnlock.y + fish.buyToUnlock.height)
                     {
                         fish.Unlock();
+                        _level.journal.AddFish(fish);
+                        Console.WriteLine("Fish bought type is " + fish.GetFishType());
                     }
                 }
 
