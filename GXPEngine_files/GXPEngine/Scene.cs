@@ -21,8 +21,13 @@ namespace GXPEngine
         public CurrencySystem _currency;
         int cleanMeter = 0;
         int scene;
+        int priceOfAquarium;
+        bool isBought=false;
+        bool isOneFishShown = false;
+        Sprite clickToBuy;
 
-        public Scene(string path, CurrencySystem currency, Level level, int scene) : base()
+
+        public Scene(string path, CurrencySystem currency, Level level, int scene, int price=400) : base()
         {
             this.scene = scene;
             _currency = currency;
@@ -38,14 +43,23 @@ namespace GXPEngine
             foodList = new List<Food>();
             AddChild(tank);
             AddChild(downArrow);
-
+            priceOfAquarium = price;
 
             fishListPerScene = new List<Fish>();
             DisplayFishInScene fishes = new DisplayFishInScene(scene, foodList, fishListPerScene);
             sponge = new Sponge(this);
             shop = new Shop(fishListPerScene,level);
              inv = new Inventory();
-            AddChild(inv);
+            clickToBuy = new Sprite("checkers.png");
+            clickToBuy.width = 200;
+            clickToBuy.height = 200;
+            AddChild(clickToBuy);
+            for(int i = 0; i < 30; i++)
+            {
+                Dirt dirt = new Dirt(ref cleanMeter);
+                sponge.addDirt(dirt);
+                AddChild(dirt);
+            }
 
         }
         void addFish()
@@ -58,6 +72,10 @@ namespace GXPEngine
                     {
                         AddChild(fish);
                         fish.isAdded = true;
+                        if (isOneFishShown == false)
+                        {
+                            isOneFishShown = true;
+                        }
                     }
                 }
             }
@@ -71,36 +89,59 @@ namespace GXPEngine
                 foodList.Add(food);
             }
         }
+
         void Update()
         {
             if (isActive)
             {
-                canMakeFood = true;
-                switch (inv.id)
-
+                if (isBought == true)
                 {
-                    case Inventory.Food:
-                        makeFood();
-                        RemoveShop();
-                        RemoveSponge();
-                        break;
-                    case Inventory.Sponge:
-                        displaySponge();
-                        RemoveShop();
-                        break;
-                    case Inventory.Shop:
-                        displayShop();
-                        RemoveSponge();
-                        break;
-                    case 0:
-                        RemoveShop();
-                        RemoveSponge();
-                        handleMoney();
-                        break;
+                    canMakeFood = true;
+                    switch (inv.id)
+                    {
+                        case Inventory.Food:
+                            makeFood();
+                            RemoveShop();
+                            RemoveSponge();
+                            break;
+                        case Inventory.Sponge:
+                            displaySponge();
+                            RemoveShop();
+                            break;
+                        case Inventory.Shop:
+                            displayShop();
+                            RemoveSponge();
+                            break;
+                        case 0:
+                            RemoveShop();
+                            RemoveSponge();
+                            handleMoney();
+                            break;
+                    }
+                    if (isOneFishShown == true)
+                    {
+                        makeDirt();
+                    }
+                    addFish();
                 }
-                makeDirt();
-                addFish();
+                else
+                {
+                    buyAquarium();
+
+                }
                 goBack();
+
+            }
+        }
+
+        void buyAquarium()
+        {
+            if (MyGame.CheckMouseInRectClick(clickToBuy))
+            {
+                clickToBuy.LateDestroy();
+                isBought = true;
+                AddChild(inv);
+                level.currencySystem.RemoveMoney(priceOfAquarium);
             }
         }
 
@@ -113,16 +154,11 @@ namespace GXPEngine
 
                     if (fish.isFishHungry >3000 && cleanMeter < 75)
                     {
-                        // Console.WriteLine(fish.FishProgrss);
-                        //Console.WriteLine(fish.FishProgrss);
                         if (fish.FishProgrss >= 3000)
                         {
                             Coin coin = new Coin(fish,level);
                             AddChild(coin);
                             fish.FishProgrss = 0;
-                            //Console.WriteLine(fish.FishProgrss);
-
-                            // _currency.AddMoney(fish.coinValue);
                         }
                         else
                         {
