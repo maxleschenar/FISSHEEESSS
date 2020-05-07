@@ -8,15 +8,15 @@ namespace GXPEngine
     public class Coin: Sprite
     {
         public int value;
-        Level _scene;
-        public Coin(Fish fish, Level scene) : base("money.png")
+        Level _level;
+        public Coin(Fish fish, Level level) : base("money.png")
         {
             x = fish.x;
             y = fish.y;
             value = fish.coinValue;
             width /= 7;
             height /= 7;
-            _scene = scene;
+            _level = level;
         }
         void Update()
         {
@@ -27,7 +27,7 @@ namespace GXPEngine
         {
             if (colected == false)
             {
-                if (Input.GetMouseButtonDown(button: 1))
+                if (Input.GetMouseButtonDown(button: 0))
                 {
                     if (Input.mouseX > this.x &&
                         Input.mouseX < this.x + this.width &&
@@ -37,7 +37,7 @@ namespace GXPEngine
                         //Console.WriteLine("coin");
                         this.LateDestroy();
                         colected = true;
-                        _scene.currencySystem.AddMoney(value);
+                        _level.currencySystem.AddMoney(value);
                     }
                 }
             }
