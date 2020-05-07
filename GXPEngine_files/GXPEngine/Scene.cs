@@ -137,16 +137,12 @@ namespace GXPEngine
 
         void goBack()
         {
-            if (MyGame.CheckMouseInRect(downArrow))
-            {
-                canMakeFood = false;
-            }
             if (MyGame.CheckMouseInRectClick(downArrow))
             {
                 isActive = false;
                 level.isInScene = false;
                 visible = false;
-                if(shop != null)
+                if(HasChild(shop))
                 {
                     RemoveChild(shop);
                 }

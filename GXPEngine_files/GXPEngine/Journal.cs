@@ -33,45 +33,47 @@ public class Journal : GameObject
     {
         if (!inWindow)
         {
-            foreach (Fish f in freshFish)
-            {
-                f.buyToUnlock.alpha = 0f;
-            }
-            foreach (Fish f in seaFish)
-            {
-                f.buyToUnlock.alpha = 0f;
-            }
-            foreach (Fish f in deepFish)
-            {
-                f.buyToUnlock.alpha = 0f;
-            }
+
             if (MyGame.CheckMouseInRectClick(journalButton))
             {
                 journal.alpha = 1f;
                 close.alpha = 1f;
                 inWindow = true;
+                foreach (Fish f in freshFish)
+                {
+                    f.buyToUnlock.alpha = 0f;
+                }
+                foreach (Fish f in seaFish)
+                {
+                    f.buyToUnlock.alpha = 0f;
+                }
+                foreach (Fish f in deepFish)
+                {
+                    f.buyToUnlock.alpha = 0f;
+                }
             }
         }
 
         if (inWindow)
         {
-            foreach(Fish f in freshFish)
-            {
-                f.buyToUnlock.alpha = 1f;
-            }
-            foreach (Fish f in seaFish)
-            {
-                f.buyToUnlock.alpha = 1f;
-            }
-            foreach (Fish f in deepFish)
-            {
-                f.buyToUnlock.alpha = 1f;
-            }
+
             if (MyGame.CheckMouseInRectClick(close))
             {
                 close.alpha = 0f;
                 journal.alpha = 0f;
                 inWindow = false;
+                foreach (Fish f in freshFish)
+                {
+                    f.buyToUnlock.alpha = 1f;
+                }
+                foreach (Fish f in seaFish)
+                {
+                    f.buyToUnlock.alpha = 1f;
+                }
+                foreach (Fish f in deepFish)
+                {
+                    f.buyToUnlock.alpha = 1f;
+                }
             }
         }
     }

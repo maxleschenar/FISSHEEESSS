@@ -30,18 +30,14 @@ namespace GXPEngine
             {
                 if (Input.GetMouseButtonDown(button: 0))
                 {
-                    if (Input.mouseX > fish.buyToUnlock.x &&
-                        Input.mouseX < fish.buyToUnlock.x + fish.buyToUnlock.width &&
-                        Input.mouseY > fish.buyToUnlock.y &&
-                        Input.mouseY < fish.buyToUnlock.y + fish.buyToUnlock.height)
-                    {
-                        fish.Unlock();
-                        _level.journal.AddFish(fish);
-                        Console.WriteLine("Fish bought type is " + fish.GetFishType());
+                    if (MyGame.CheckMouseInRectClick(fish.buyToUnlock))
+                    {      
                         if (fish.isUnlocked == false)
                         {
                             _level.currencySystem.RemoveMoney(fish.coinValue);
                             fish.Unlock();
+                            _level.journal.AddFish(fish);
+                            
                         }
                     }
                 }

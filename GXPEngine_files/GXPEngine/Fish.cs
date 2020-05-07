@@ -20,8 +20,6 @@ namespace GXPEngine
         public int isFishHungry = 10000;
         Sprite hungerIcon;
         public int FishProgrss = 0;
-        Journal journal;
-
 
         public int coinValue=200;
         int timer;
@@ -37,7 +35,7 @@ namespace GXPEngine
             this.fishName = fishName;
             this.description = description;
             SetOrigin(width / 2, height / 2);
-            _position = new Vec2(200, 300);
+            _position = new Vec2(Utils.Random(50, game.width - 200), Utils.Random(50, game.height - 200));
             _radius = width / 2;
             hungerIcon = new Sprite("square.png");
             timer = 100;
@@ -65,6 +63,11 @@ namespace GXPEngine
         {
             x = _position.x;
             y = _position.y;
+            if (velocity.x < 0)
+            {
+                Mirror(true, false);
+            }
+            else Mirror(false, false);
         }
         void calcDistToPoint()
         {
@@ -162,6 +165,8 @@ namespace GXPEngine
         {
             return type;
         }
+
+
     }
 
 }
