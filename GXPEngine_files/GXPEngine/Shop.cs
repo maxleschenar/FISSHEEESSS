@@ -31,12 +31,18 @@ namespace GXPEngine
                 if (Input.GetMouseButtonDown(button: 0))
                 {
                     if (MyGame.CheckMouseInRectClick(fish.buyToUnlock))
-                    {      
-                        if (fish.isUnlocked == false)
+                    {
+                        if (_level.currencySystem.money >= fish.coinValue)
                         {
-                            _level.currencySystem.RemoveMoney(fish.coinValue);
-                            fish.Unlock();
-                            _level.journal.AddFish(fish);
+
+                            if (fish.isUnlocked == false)
+                            {
+                                _level.currencySystem.RemoveMoney(fish.coinValue);
+                                fish.Unlock();
+                                _level.journal.AddFish(fish);
+
+                            }
+
                         }
                     }
                 }

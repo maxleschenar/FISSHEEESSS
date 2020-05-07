@@ -6,14 +6,15 @@ using System.Text;
 namespace GXPEngine
 {
 
-    public class Scene: GameObject
-    {        
+    public class Scene : GameObject
+    {
         Sprite tank, downArrow;
         Level level;
-        int timer=1000;
+        int timer = 1000;
         public bool isActive;
         bool canMakeFood;
         Sponge sponge;
+        Sprite foodCan;
         public List<Food> foodList;
         List<Fish> fishListPerScene;
         Shop shop;
@@ -22,12 +23,12 @@ namespace GXPEngine
         int cleanMeter = 0;
         int scene;
         int priceOfAquarium;
-        bool isBought=false;
+        bool isBought = false;
         bool isOneFishShown = false;
         Sprite clickToBuy;
 
 
-        public Scene(string path, CurrencySystem currency, Level level, int scene, int price=400) : base()
+        public Scene(string path, CurrencySystem currency, Level level, int scene, int price = 400) : base()
         {
             this.scene = scene;
             _currency = currency;
@@ -48,13 +49,17 @@ namespace GXPEngine
             fishListPerScene = new List<Fish>();
             DisplayFishInScene fishes = new DisplayFishInScene(scene, foodList, fishListPerScene);
             sponge = new Sponge(this);
-            shop = new Shop(fishListPerScene,level);
-             inv = new Inventory();
+            shop = new Shop(fishListPerScene, level);
+            inv = new Inventory();
             clickToBuy = new Sprite("checkers.png");
             clickToBuy.width = 200;
             clickToBuy.height = 200;
             AddChild(clickToBuy);
-            for(int i = 0; i < 30; i++)
+            foodCan = new Sprite("fish_food.png");
+            foodCan.SetOrigin(foodCan.width / 4, 0);
+            foodCan.width /= 5;
+            foodCan.height /= 5;
+            for (int i = 0; i < 30; i++)
             {
                 Dirt dirt = new Dirt(ref cleanMeter);
                 sponge.addDirt(dirt);
@@ -64,7 +69,7 @@ namespace GXPEngine
         }
         void addFish()
         {
-            foreach(Fish fish in fishListPerScene)
+            foreach (Fish fish in fishListPerScene)
             {
                 if (fish.isUnlocked == true)
                 {
@@ -85,7 +90,7 @@ namespace GXPEngine
             if (Input.GetMouseButtonDown(button: 0) && canMakeFood)
             {
                 Food food = new Food();
-                AddChildAt(food,1);
+                AddChildAt(food, 1);
                 foodList.Add(food);
             }
         }
@@ -101,21 +106,26 @@ namespace GXPEngine
                     {
                         case Inventory.Food:
                             makeFood();
+                            displayFoodCan();
+                            moveFoodCan();
                             RemoveShop();
                             RemoveSponge();
                             break;
                         case Inventory.Sponge:
                             displaySponge();
                             RemoveShop();
+                            RemoveFoodCan();
                             break;
                         case Inventory.Shop:
                             displayShop();
                             RemoveSponge();
+                            RemoveFoodCan();
                             break;
                         case 0:
                             RemoveShop();
                             RemoveSponge();
                             handleMoney();
+                            RemoveFoodCan();
                             break;
                     }
                     if (isOneFishShown == true)
@@ -137,10 +147,14 @@ namespace GXPEngine
         {
             if (MyGame.CheckMouseInRectClick(clickToBuy))
             {
-                clickToBuy.LateDestroy();
-                isBought = true;
-                AddChild(inv);
-                level.currencySystem.RemoveMoney(priceOfAquarium);
+                if (level.currencySystem.money >= priceOfAquarium)
+                {
+                    clickToBuy.LateDestroy();
+                    isBought = true;
+                    AddChild(inv);
+                    level.currencySystem.RemoveMoney(priceOfAquarium);
+                }
+
             }
         }
 
@@ -151,11 +165,11 @@ namespace GXPEngine
                 if (fish.isUnlocked == true)
                 {
 
-                    if (fish.isFishHungry >3000 && cleanMeter < 75)
+                    if (fish.isFishHungry > 3000 && cleanMeter < 75)
                     {
                         if (fish.FishProgrss >= 3000)
                         {
-                            Coin coin = new Coin(fish,level);
+                            Coin coin = new Coin(fish, level);
                             AddChild(coin);
                             fish.FishProgrss = 0;
                         }
@@ -166,7 +180,7 @@ namespace GXPEngine
                     }
                 }
             }
-            
+
         }
         void makeDirt()
         {
@@ -193,7 +207,7 @@ namespace GXPEngine
                 isActive = false;
                 level.isInScene = false;
                 visible = false;
-                if(HasChild(shop))
+                if (HasChild(shop))
                 {
                     RemoveChild(shop);
                 }
@@ -203,27 +217,11 @@ namespace GXPEngine
         bool spongeOnScreen = false;
         void displaySponge()
         {
-            //if (Input.GetMouseButton(button: 1))
-            //{
-                if (spongeOnScreen == false)
-                {
-                    AddChild(sponge);
-                    spongeOnScreen = true;
-                }
-               // else
-                //{
-               //RemoveChild(sponge);
-                //spongeOnScreen = false;
-            //}
-            //}
-            //else
-            //{
-                //if (spongeOnScreen == true)
-                //{
-                    
-                //}
-            //} 
-                
+            if (spongeOnScreen == false)
+            {
+                AddChild(sponge);
+                spongeOnScreen = true;
+            }
         }
         void RemoveSponge()
         {
@@ -235,18 +233,42 @@ namespace GXPEngine
 
 
         }
+        void moveFoodCan()
+        {
+            foodCan.x = Input.mouseX;
+            foodCan.y = Input.mouseY;
+        }
+        void displayFoodCan()
+        {
+            if (isFoodDisplayed == false)
+            {
+                AddChild(foodCan);
+                isFoodDisplayed = true;
+            }
+        }
+        void RemoveFoodCan()
+        {
+            if (isFoodDisplayed == true)
+            {
+                RemoveChild(foodCan);
+                isFoodDisplayed = false;
+            }
+
+
+        }
         bool isShopDisplayed = false;
+        bool isFoodDisplayed = false;
         void displayShop()
         {
-            
 
-                if (isShopDisplayed == false)
 
-                {
-                    AddChild(shop);
-                    isShopDisplayed = true;
-                }
-            
+            if (isShopDisplayed == false)
+
+            {
+                AddChild(shop);
+                isShopDisplayed = true;
+            }
+
         }
         void RemoveShop()
         {
