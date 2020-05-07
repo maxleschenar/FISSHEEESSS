@@ -127,7 +127,6 @@ namespace GXPEngine
                 else
                 {
                     buyAquarium();
-
                 }
                 goBack();
 

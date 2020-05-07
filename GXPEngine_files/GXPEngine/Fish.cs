@@ -184,11 +184,6 @@ namespace GXPEngine
             return type;
         }
 
-        public string GetFishName()
-        {
-            return fishName;
-        }
-
 
     }
 
