@@ -27,7 +27,7 @@ namespace GXPEngine
         {
             if (colected == false)
             {
-                if (Input.GetMouseButtonDown(button: 2))
+                if (Input.GetMouseButtonDown(button: 1))
                 {
                     if (Input.mouseX > this.x &&
                         Input.mouseX < this.x + this.width &&
