@@ -94,7 +94,7 @@ public class Journal : GameObject
 
     void ShowNames(string name, float x, float y)
     {
-        canvas.graphics.DrawString(name, SystemFonts.DefaultFont, Brushes.Black, x, y);
+        
     }
 
 }
