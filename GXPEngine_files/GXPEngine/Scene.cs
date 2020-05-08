@@ -278,9 +278,10 @@ namespace GXPEngine
         }
         void RemoveShop()
         {
-            RemoveChild(shop);
             if (isShopDisplayed == true)
             {
+                RemoveChild(shop);
+
                 shop.visible = false;
                 isShopDisplayed = false;
             }
