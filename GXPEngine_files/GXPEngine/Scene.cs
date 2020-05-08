@@ -42,7 +42,7 @@ namespace GXPEngine
             downArrow.SetXY(game.width / 2, game.height - 200);
             downArrow.SetScaleXY(0.2f);
             foodList = new List<Food>();
-            AddChild(tank);
+            AddChildAt(tank,0);
             AddChild(downArrow);
             priceOfAquarium = price;
 
@@ -75,7 +75,7 @@ namespace GXPEngine
                 {
                     if (fish.isAdded == false)
                     {
-                        AddChild(fish);
+                        AddChildAt(fish,1);
                         fish.isAdded = true;
                         if (isOneFishShown == false)
                         {
@@ -173,7 +173,7 @@ namespace GXPEngine
                         if (fish.FishProgrss >= 3000)
                         {
                             Coin coin = new Coin(fish, level);
-                            AddChild(coin);
+                            AddChildAt(coin,1);
                             fish.FishProgrss = 0;
                         }
                         else
@@ -193,7 +193,7 @@ namespace GXPEngine
             {
                 Dirt dirt = new Dirt(ref cleanMeter);
                 sponge.addDirt(dirt);
-                AddChild(dirt);
+                AddChildAt(dirt,6);
                 timer = 1000;
             }
         }
