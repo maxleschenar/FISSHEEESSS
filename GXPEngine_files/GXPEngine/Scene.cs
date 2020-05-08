@@ -268,8 +268,8 @@ namespace GXPEngine
         void displayShop()
         {
             AddChild(shop);
-            if (isShopDisplayed == false)
 
+            if (isShopDisplayed == false)
             {
                 shop.visible = true;
                 isShopDisplayed = true;
