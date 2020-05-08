@@ -11,11 +11,10 @@ public class Journal : GameObject
     Font titleFont, textFont;
     List<Fish> freshFish, seaFish, deepFish;
     List<Button> buttons;
-    Canvas canvas;
+    Canvas canvas, descriptionCanvas;
     Level level;
 
     public bool inWindow;
-    bool hasDescription;
     public Journal(Level level) : base()
     {
         this.level = level;
@@ -30,23 +29,26 @@ public class Journal : GameObject
         journal.SetXY(100, 100);
         close.SetXY(journal.x + journal.width - close.width, journal.y);
         canvas = new Canvas(journal.width, journal.height);
+        descriptionCanvas = new Canvas(500, 500);
+        
         AddChild(journalButton);
         AddChild(journal);
         AddChild(close);
         AddChild(canvas);
+        AddChild(descriptionCanvas);
         journal.alpha = 0f;
         close.alpha = 0f;
         titleFont = new Font("Times New Roman", 24);
         textFont = new Font("Times New Roman", 16);
         inWindow = false;
-        hasDescription = false;
     }
 
     void Update()
     {
+        canvas.SetXY(journal.x, journal.y);
+        descriptionCanvas.SetXY(journal.x + 450, journal.y + 150);
         if (!inWindow)
         {
-            canvas.graphics.Clear(Color.Transparent);
             if (MyGame.CheckMouseInRectClick(journalButton))
             {
                 journal.alpha = 1f;
@@ -57,17 +59,27 @@ public class Journal : GameObject
 
         if (inWindow)
         {
-            canvas.graphics.Clear(Color.Transparent);
-            canvas.graphics.DrawString("FRESH WATER FISH", titleFont, Brushes.Black, journal.x + 50, journal.y + 150);
+            canvas.graphics.DrawString("FRESH WATER FISH", titleFont, Brushes.Black, journal.x, journal.y + 50);
             for(int i = 0; i < freshFish.Count; i++)
             {
-                ShowNames(freshFish[i].GetFishName(), journal.x + 50, journal.y + 200 + i * 50);
+                ShowNames(journal.x + 50, journal.y + 200 + i * 50);
+                if (MyGame.CheckMouseInRectClick(buttons[i]))
+                {
+                    descriptionCanvas.graphics.Clear(Color.Transparent);
+                    descriptionCanvas.graphics.DrawString(freshFish[i].GetFishDescription(), textFont, Brushes.Black, 0, 0);
+                }
             }
+
             if (MyGame.CheckMouseInRectClick(close))
             {
                 close.alpha = 0f;
                 journal.alpha = 0f;
                 inWindow = false;
+                descriptionCanvas.graphics.Clear(Color.Transparent);
+                foreach(Button button in buttons)
+                {
+                    button.isActive = false;
+                }
             }
         }
     }
@@ -76,7 +88,7 @@ public class Journal : GameObject
     {
         Button button = new Button(new Vec2(0, 0), 300, 30, fish.GetFishName());
         buttons.Add(button);
-        button.isActive = false;
+        AddChild(button);
         switch (fish.GetFishType())
         {
             case "Fresh water":
@@ -92,9 +104,13 @@ public class Journal : GameObject
 
     }
 
-    void ShowNames(string name, float x, float y)
+    void ShowNames(float x, float y)
     {
-        
+        foreach(Button button in buttons)
+        {
+            button.isActive = true;
+            button.SetXY(x, y);
+        }
     }
 
 }

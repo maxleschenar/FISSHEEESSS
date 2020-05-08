@@ -35,12 +35,14 @@ public class Button : GameObject
         AddChild(canvas);
     }
 
+    
+
     void Update()
     {
+        canvas.graphics.Clear(Color.Transparent);
         if (isActive)
-        {
-            canvas.graphics.Clear(Color.Transparent);
-            canvas.graphics.FillRectangle(Brushes.Orange, 0, 0, width, height);
+        { 
+            canvas.graphics.FillRectangle(Brushes.Red, 0, 0, width, height);
             canvas.graphics.DrawString(text, SystemFonts.DefaultFont, Brushes.Black, width / 2, height / 2);
         }
     }
