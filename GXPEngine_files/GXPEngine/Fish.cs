@@ -24,7 +24,9 @@ namespace GXPEngine
         public int coinValue = 200;
         int timer;
 
-        string fishName, description, type;
+        public string fishName;
+        public int _frames;
+            string description, type;
 
         public Sprite buyToUnlock;
 
@@ -34,6 +36,7 @@ namespace GXPEngine
             this.type = type;
             this.fishName = fishName;
             this.description = description;
+            _frames = frames;
             SetOrigin(width / 2, height / 2);
             _position = new Vec2(Utils.Random(50, game.width - 200), Utils.Random(50, game.height - 200));
             _radius = width / 2;

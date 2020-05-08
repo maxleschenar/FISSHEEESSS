@@ -11,45 +11,77 @@ namespace GXPEngine
         Level _level;
         public Shop(List<Fish> fishListOfTank,Level level)
         {
-            int i = 1;
+
             _level = level;
             fishList = fishListOfTank;
-            foreach(Fish fish in fishListOfTank)
+            makeShop();
+            
+        }
+        void makeShop()
+        {
+            int i = 1;
+            int j = 1;
+            makeBackground();
+            foreach (Fish fish in fishList)
             {
                 if (fish.isUnlocked == false)
                 {
                     AddChild(fish.buyToUnlock);
-                    fish.buyToUnlock.y = i * 100;
+                    fish.buyToUnlock.x = i * game.width / 4 - fish.buyToUnlock.width / 2;
+                    fish.buyToUnlock.y = j * game.height / 3;
+
+                    makeIconsForFish(i, j, fish);
                     i++;
+                    if (i >= 4)
+                    {
+                        j++;
+                        i = 1;
+                    }
                 }
             }
         }
-        void makeShop()
-        {
 
+        private void makeIconsForFish(int i, int j, Fish fish)
+        {
+            Sprite fishIcon = new Sprite(fish.fishName + "-icon.png");
+            AddChild(fishIcon);
+            fishIcon.SetOrigin(fishIcon.width / 2, fishIcon.height / 2);
+            fishIcon.width /= 8;
+            fishIcon.height /= 8;
+            fishIcon.x = i * game.width / 4;
+            fishIcon.y = j * game.height / 3 - fishIcon.height / 2;
         }
+
+        private void makeBackground()
+        {
+            Sprite backgroundShop = new Sprite("backgroundShop.png");
+            AddChild(backgroundShop);
+            backgroundShop.width = game.width - game.width / 5;
+            backgroundShop.height = game.height - game.height / 5;
+            backgroundShop.x = game.width / 10;
+            backgroundShop.y = game.height / 10;
+        }
+
         void Update()
         {
             foreach (Fish fish in fishList)
             {
-                //if (Input.GetMouseButtonDown(button: 0))
-                //{
-                    if (MyGame.CheckMouseInRectClick(fish.buyToUnlock))
+
+                if (MyGame.CheckMouseInRectClick(fish.buyToUnlock))
+                {
+                    if (_level.currencySystem.money >= fish.coinValue)
                     {
-                        if (_level.currencySystem.money >= fish.coinValue)
+
+                        if (fish.isUnlocked == false)
                         {
-
-                            if (fish.isUnlocked == false)
-                            {
-                                _level.currencySystem.RemoveMoney(fish.coinValue);
-                                fish.Unlock();
-                                _level.journal.AddFish(fish);
-
-                            }
+                            _level.currencySystem.RemoveMoney(fish.coinValue);
+                            fish.Unlock();
+                            _level.journal.AddFish(fish);
 
                         }
+
                     }
-                //}
+                }
 
             }
         }

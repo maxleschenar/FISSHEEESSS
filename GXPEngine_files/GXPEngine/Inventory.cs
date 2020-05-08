@@ -30,12 +30,12 @@ namespace GXPEngine
             emptySpace2 = new Sprite("checkers.png");
             emptySpace3 = new Sprite("checkers.png");
 
-            emptySpace1.x = game.width - 200;
-            emptySpace2.x = game.width - 200;
-            emptySpace3.x = game.width - 200;
-            emptySpace1.y = 100;
-            emptySpace2.y = 250;
-            emptySpace3.y = 400;
+            emptySpace1.x = game.width - 100;
+            emptySpace2.x = game.width - 100;
+            emptySpace3.x = game.width - 100;
+            emptySpace1.y = 150;
+            emptySpace2.y = 300;
+            emptySpace3.y = 450;
             emptySpace1.width /= 5;
             emptySpace1.height /= 5;
             emptySpace2.width /= 5;
@@ -49,20 +49,20 @@ namespace GXPEngine
 
             food.x = emptySpace1.x;
             food.y = emptySpace1.y;
-            food.width /= 5;
-            food.height /= 5;
+            food.width /= 6;
+            food.height /= 6;
            // AddChild(food);
 
             sponge.x = emptySpace2.x;
             sponge.y = emptySpace2.y;
-            sponge.width /= 14;
-            sponge.height /= 14;
+            sponge.width /= 17;
+            sponge.height /= 17;
            // AddChild(sponge);
 
             shop.x = emptySpace3.x;
             shop.y = emptySpace3.y;
-            shop.width /= 5;
-            shop.height /= 5;
+            shop.width /= 6;
+            shop.height /= 6;
             //AddChild(shop);
             listOfItemsInInventory.Add(food);
             listOfItemsInInventory.Add(sponge);
@@ -100,6 +100,17 @@ namespace GXPEngine
                     
                 }
             }
+        }
+        public bool checkIfItemIsOverlapped()
+        {
+            foreach (Item item in listOfItemsInInventory)
+            {
+                if (MyGame.CheckMouseInRect(item))
+                {
+                    return true;
+                }
+            }
+            return false;
         }
 
         void checkID()

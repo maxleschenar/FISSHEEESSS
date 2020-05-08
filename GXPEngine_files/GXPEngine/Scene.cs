@@ -105,7 +105,10 @@ namespace GXPEngine
                     switch (inv.id)
                     {
                         case Inventory.Food:
-                            makeFood();
+                            if (inv.checkIfItemIsOverlapped() == false)
+                            {
+                                makeFood();
+                            }
                             displayFoodCan();
                             moveFoodCan();
                             RemoveShop();
@@ -126,6 +129,7 @@ namespace GXPEngine
                             RemoveSponge();
                             handleMoney();
                             RemoveFoodCan();
+                            goBack();
                             break;
                     }
                     if (isOneFishShown == true)
@@ -138,7 +142,6 @@ namespace GXPEngine
                 {
                     buyAquarium();
                 }
-                goBack();
 
             }
         }
