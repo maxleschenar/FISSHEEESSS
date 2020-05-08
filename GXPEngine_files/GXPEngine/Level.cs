@@ -19,9 +19,9 @@ public class Level : Sprite
         scenes = new List<Scene>();
         journal = new Journal(this);
         currencySystem = new CurrencySystem();
-        AddButton(new Button(new Vec2(100, game.height / 2), "group1.png"));
-        AddButton(new Button(new Vec2(game.width / 2 - 50, game.height / 2), "group1.png"));
-        AddButton(new Button(new Vec2(game.width - 200, game.height / 2), "group1.png"));
+        AddButton(new Button(new Vec2(100, game.height / 2), 300, 200, "dis de first tenk"));
+        AddButton(new Button(new Vec2(game.width / 2 - 100, game.height / 2), 300, 200, "dis de second denk"));
+        AddButton(new Button(new Vec2(game.width - 300, game.height / 2), 300, 200, "und diese ist die dritte Aquarium"));
         AddScene(new Scene("fishtanksample.png", currencySystem, this, 1));
         AddScene(new Scene("empty_tank2.jpg", currencySystem, this, 2));
         AddScene(new Scene("fishtank3.jpg", currencySystem, this, 3));
