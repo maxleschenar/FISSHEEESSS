@@ -10,7 +10,7 @@ public class Journal : GameObject
     Sprite journal;
     Font titleFont, textFont;
     List<Fish> freshFish, seaFish, deepFish;
-    List<Sprite> buttons;
+    List<Button> buttons;
     Canvas canvas;
     Level level;
 
@@ -22,7 +22,7 @@ public class Journal : GameObject
         freshFish = new List<Fish>();
         seaFish = new List<Fish>();
         deepFish = new List<Fish>();
-        buttons = new List<Sprite>();
+        buttons = new List<Button>();
         journalButton = new Sprite("journalbutton.png");
         journalButton.SetXY(game.width - 250, game.height - 200);
         close = new Sprite("jurnalClose.png");
@@ -74,6 +74,9 @@ public class Journal : GameObject
 
     public void AddFish(Fish fish)
     {
+        Button button = new Button(new Vec2(0, 0), 300, 30, fish.GetFishName());
+        buttons.Add(button);
+        button.isActive = false;
         switch (fish.GetFishType())
         {
             case "Fresh water":
@@ -92,7 +95,6 @@ public class Journal : GameObject
     void ShowNames(string name, float x, float y)
     {
         
-        canvas.graphics.DrawString(name, SystemFonts.DefaultFont, Brushes.Black, x, y);
     }
 
 }

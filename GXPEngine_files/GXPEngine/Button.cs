@@ -7,29 +7,42 @@ using GXPEngine;
 public class Button : GameObject
 {
     Canvas canvas;
-    Image img;
+    int width, height;
+    StringFormat sf;
+    string text;
+    public bool isActive;
     public float Width
     {
-        get { return img.Width; }
+        get { return width; }
     }
     public float Height
     {
-        get { return img.Height; }
+        get { return height; }
     }
 
 
-    public Button(Vec2 position, string path)
+    public Button(Vec2 position, int width, int height, string text)
     {
+        isActive = true;
+        sf = new StringFormat();
+        sf.Alignment = StringAlignment.Center;
+        sf.LineAlignment = StringAlignment.Center;
+        this.text = text;
+        this.width = width;
+        this.height = height;
         SetXY(position.x, position.y);
-        img = Image.FromFile(path);
-        canvas = new Canvas(img.Width, img.Height);
+        canvas = new Canvas(width, height);
         AddChild(canvas);
     }
 
     void Update()
     {
-        canvas.graphics.Clear(Color.Transparent);
-        canvas.graphics.DrawImage(img, 0,0);
+        if (isActive)
+        {
+            canvas.graphics.Clear(Color.Transparent);
+            canvas.graphics.FillRectangle(Brushes.Orange, 0, 0, width, height);
+            canvas.graphics.DrawString(text, SystemFonts.DefaultFont, Brushes.Black, width / 2, height / 2);
+        }
     }
 
 }

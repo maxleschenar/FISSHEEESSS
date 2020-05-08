@@ -46,7 +46,6 @@
     <Compile Include="Dirt.cs" />
     <Compile Include="DisplayFishInScene.cs" />
     <Compile Include="Fish.cs" />
-    <Compile Include="FishWindow.cs" />
     <Compile Include="Food.cs" />
     <Compile Include="Inventory.cs" />
     <Compile Include="Item.cs" />
