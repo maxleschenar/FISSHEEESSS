@@ -200,7 +200,7 @@ namespace GXPEngine
             {
                 Dirt dirt = new Dirt(ref cleanMeter);
                 sponge.addDirt(dirt);
-                AddChildAt(dirt,9);
+                AddChild(dirt);
                 timer = 1000;
             }
         }
