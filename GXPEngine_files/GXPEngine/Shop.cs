@@ -38,6 +38,7 @@ namespace GXPEngine
                     {
                         if (_level.currencySystem.money >= fish.coinValue)
                         {
+
                             if (fish.isUnlocked == false)
                             {
                                 _level.currencySystem.RemoveMoney(fish.coinValue);
@@ -45,6 +46,7 @@ namespace GXPEngine
                                 _level.journal.AddFish(fish);
 
                             }
+
                         }
                     }
                 //}
