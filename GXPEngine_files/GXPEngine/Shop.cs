@@ -24,12 +24,16 @@ namespace GXPEngine
                 }
             }
         }
+        void makeShop()
+        {
+
+        }
         void Update()
         {
             foreach (Fish fish in fishList)
             {
-                if (Input.GetMouseButtonDown(button: 0))
-                {
+                //if (Input.GetMouseButtonDown(button: 0))
+                //{
                     if (MyGame.CheckMouseInRectClick(fish.buyToUnlock))
                     {
                         if (_level.currencySystem.money >= fish.coinValue)
@@ -43,7 +47,7 @@ namespace GXPEngine
                             }
                         }
                     }
-                }
+                //}
 
             }
         }
