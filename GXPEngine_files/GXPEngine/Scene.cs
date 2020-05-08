@@ -65,8 +65,11 @@ namespace GXPEngine
                 sponge.addDirt(dirt);
                 AddChild(dirt);
             }
+            AddChild(shop);
+            shop.visible = false;
 
         }
+        int index=2;
         void addFish()
         {
             foreach (Fish fish in fishListPerScene)
@@ -75,7 +78,7 @@ namespace GXPEngine
                 {
                     if (fish.isAdded == false)
                     {
-                        AddChild(fish);
+                        AddChildAt(fish,1);
                         fish.isAdded = true;
                         if (isOneFishShown == false)
                         {
@@ -102,6 +105,11 @@ namespace GXPEngine
                 if (isBought == true)
                 {
                     canMakeFood = true;
+                    addFish();
+                    if (isOneFishShown == true)
+                    {
+                        makeDirt();
+                    }
                     switch (inv.id)
                     {
                         case Inventory.Food:
@@ -120,13 +128,6 @@ namespace GXPEngine
                             RemoveFoodCan();
                             break;
                         case Inventory.Shop:
-                            foreach (Fish fish in fishListPerScene)
-                            {
-                                if (fish.isUnlocked)
-                                {
-                                    SetChildIndex(fish, 1);
-                                }
-                            }
                             displayShop();
                             RemoveSponge();
                             RemoveFoodCan();
@@ -139,11 +140,7 @@ namespace GXPEngine
                             goBack();
                             break;
                     }
-                    if (isOneFishShown == true)
-                    {
-                        makeDirt();
-                    }
-                    addFish();
+
                 }
                 else
                 {
@@ -200,7 +197,7 @@ namespace GXPEngine
             {
                 Dirt dirt = new Dirt(ref cleanMeter);
                 sponge.addDirt(dirt);
-                AddChildAt(dirt,9);
+                AddChild(dirt);
                 timer = 1000;
             }
         }
@@ -270,19 +267,21 @@ namespace GXPEngine
         bool isFoodDisplayed = false;
         void displayShop()
         {
+            AddChild(shop);
             if (isShopDisplayed == false)
 
             {
-                AddChild(shop);
+                shop.visible = true;
                 isShopDisplayed = true;
             }
 
         }
         void RemoveShop()
         {
+            RemoveChild(shop);
             if (isShopDisplayed == true)
             {
-                RemoveChild(shop);
+                shop.visible = false;
                 isShopDisplayed = false;
             }
         }
