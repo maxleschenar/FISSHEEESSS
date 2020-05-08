@@ -26,7 +26,7 @@ public class Journal : GameObject
         journalButton.SetXY(game.width - 250, game.height - 200);
         close = new Sprite("jurnalClose.png");
         journal = new Sprite("journalitself.png");
-        journal.SetXY(100, 100);
+        journal.SetXY(50, 0);
         close.SetXY(journal.x + journal.width - close.width, journal.y);
         canvas = new Canvas(journal.width, journal.height);
         descriptionCanvas = new Canvas(500, 500);
@@ -54,6 +54,14 @@ public class Journal : GameObject
                 journal.alpha = 1f;
                 close.alpha = 1f;
                 inWindow = true;
+                foreach(Button button in buttons)
+                {
+                    if (!HasChild(button))
+                    {
+                        AddChild(button);
+                    }
+                    button.isActive = true;
+                }
             }
         }
 
@@ -62,24 +70,19 @@ public class Journal : GameObject
             canvas.graphics.DrawString("FRESH WATER FISH", titleFont, Brushes.Black, journal.x, journal.y + 50);
             for(int i = 0; i < freshFish.Count; i++)
             {
-                ShowNames(journal.x + 50, journal.y + 200 + i * 50);
                 if (MyGame.CheckMouseInRectClick(buttons[i]))
                 {
                     descriptionCanvas.graphics.Clear(Color.Transparent);
                     descriptionCanvas.graphics.DrawString(freshFish[i].GetFishDescription(), textFont, Brushes.Black, 0, 0);
                 }
             }
-
             if (MyGame.CheckMouseInRectClick(close))
             {
+                canvas.graphics.Clear(Color.Transparent);
                 close.alpha = 0f;
                 journal.alpha = 0f;
                 inWindow = false;
                 descriptionCanvas.graphics.Clear(Color.Transparent);
-                foreach(Button button in buttons)
-                {
-                    button.isActive = false;
-                }
             }
         }
     }
@@ -88,7 +91,6 @@ public class Journal : GameObject
     {
         Button button = new Button(new Vec2(0, 0), 300, 30, fish.GetFishName());
         buttons.Add(button);
-        AddChild(button);
         switch (fish.GetFishType())
         {
             case "Fresh water":
@@ -104,14 +106,6 @@ public class Journal : GameObject
 
     }
 
-    void ShowNames(float x, float y)
-    {
-        foreach(Button button in buttons)
-        {
-            button.isActive = true;
-            button.SetXY(x, y);
-        }
-    }
 
 }
 

@@ -12,6 +12,7 @@ public class Level : Sprite
     public Journal journal;
     public CurrencySystem currencySystem;
     public bool isInScene;
+    bool inJournal;
     public Level() : base("aquariums.png")
     {
         isInScene = false;
@@ -26,13 +27,14 @@ public class Level : Sprite
         AddScene(new Scene("empty_tank2.jpg", currencySystem, this, 2));
         AddScene(new Scene("fishtank3.jpg", currencySystem, this, 3));
         AddChild(journal);
+        inJournal = false;
     }
 
     void Update()
     {
         
 
-        if (!isInScene)
+        if (!isInScene && !journal.inWindow)
         {
             for (int i = 0; i < buttons.Count; i++)
             {
