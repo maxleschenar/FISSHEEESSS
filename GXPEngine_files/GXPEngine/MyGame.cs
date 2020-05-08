@@ -37,6 +37,7 @@ public class MyGame : Game
 
     public static bool CheckMouseInRect(Button button)
     {
+        button.InverseTransformPoint(Input.mouseX, Input.mouseY);
         if (Input.mouseX >= button.x && Input.mouseX <= button.x + button.Width &&
                 Input.mouseY >= button.y && Input.mouseY <= button.y + button.Height)
         {
@@ -57,6 +58,7 @@ public class MyGame : Game
 
     public static bool CheckMouseInRectClick(Button button)
     {
+        button.InverseTransformPoint(Input.mouseX, Input.mouseY);
         if (Input.GetMouseButtonDown(0))
         {
             if (Input.mouseX >= button.x && Input.mouseX <= button.x + button.Width &&
