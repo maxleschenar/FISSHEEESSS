@@ -9,7 +9,7 @@ namespace GXPEngine
     {
         public int value;
         Level _level;
-        public Coin(Fish fish, Level level) : base("money.png")
+        public Coin(Fish fish, Level level) : base("coin.png")
         {
             x = fish.x;
             y = fish.y;
