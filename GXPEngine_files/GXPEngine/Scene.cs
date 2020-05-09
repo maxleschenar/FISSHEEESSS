@@ -140,6 +140,7 @@ namespace GXPEngine
                 }
                 else
                 {
+                    goBack();
                     buyAquarium();
                 }
    
