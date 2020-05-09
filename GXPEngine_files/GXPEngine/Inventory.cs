@@ -18,7 +18,6 @@ namespace GXPEngine
         Sprite emptySpace3;
         List<Item> listOfItemsInInventory;
         public int id=0;
-        Sprite currentItemSelected;
         //Sprite emptySpace4;
         public Inventory()
         {
@@ -36,12 +35,12 @@ namespace GXPEngine
             emptySpace1.y = 150;
             emptySpace2.y = 300;
             emptySpace3.y = 450;
-            emptySpace1.width /= 5;
-            emptySpace1.height /= 5;
-            emptySpace2.width /= 5;
-            emptySpace2.height /= 5;
-            emptySpace3.width /= 5;
-            emptySpace3.height /= 5;
+            //emptySpace1.width /= 5;
+            //emptySpace1.height /= 5;
+           // emptySpace2.width /= 5;
+            //emptySpace2.height /= 5;
+           // emptySpace3.width /= 5;
+           // emptySpace3.height /= 5;
 
             AddChild(emptySpace1);
             AddChild(emptySpace2);
@@ -55,8 +54,8 @@ namespace GXPEngine
 
             sponge.x = emptySpace2.x;
             sponge.y = emptySpace2.y;
-            sponge.width /= 17;
-            sponge.height /= 17;
+            sponge.width -= sponge.width/3;
+            sponge.height -= sponge.height /3;
            // AddChild(sponge);
 
             shop.x = emptySpace3.x;

@@ -42,7 +42,7 @@ namespace GXPEngine
             downArrow.SetXY(game.width / 2, game.height - 200);
             downArrow.SetScaleXY(0.2f);
             foodList = new List<Food>();
-            AddChildAt(tank,0);
+            AddChildAt(tank, 0);
             AddChild(downArrow);
             priceOfAquarium = price;
 
@@ -69,7 +69,6 @@ namespace GXPEngine
             shop.visible = false;
 
         }
-        int index=2;
         void addFish()
         {
             foreach (Fish fish in fishListPerScene)
@@ -78,7 +77,7 @@ namespace GXPEngine
                 {
                     if (fish.isAdded == false)
                     {
-                        AddChildAt(fish,1);
+                        AddChildAt(fish, 1);
                         fish.isAdded = true;
                         if (isOneFishShown == false)
                         {
@@ -100,16 +99,13 @@ namespace GXPEngine
 
         void Update()
         {
+
             if (isActive)
             {
                 if (isBought == true)
                 {
                     canMakeFood = true;
                     addFish();
-                    if (isOneFishShown == true)
-                    {
-                        makeDirt();
-                    }
                     switch (inv.id)
                     {
                         case Inventory.Food:
@@ -146,7 +142,15 @@ namespace GXPEngine
                 {
                     buyAquarium();
                 }
+   
 
+            }
+            if (isBought == true)
+            {
+                if (isOneFishShown == true)
+                {
+                    makeDirt();
+                }
             }
         }
 
@@ -177,7 +181,7 @@ namespace GXPEngine
                         if (fish.FishProgrss >= 3000)
                         {
                             Coin coin = new Coin(fish, level);
-                            AddChildAt(coin,1);
+                            AddChildAt(coin, 1);
                             fish.FishProgrss = 0;
                         }
                         else
@@ -268,8 +272,8 @@ namespace GXPEngine
         void displayShop()
         {
             AddChild(shop);
-            if (isShopDisplayed == false)
 
+            if (isShopDisplayed == false)
             {
                 shop.visible = true;
                 isShopDisplayed = true;
@@ -278,9 +282,10 @@ namespace GXPEngine
         }
         void RemoveShop()
         {
-            RemoveChild(shop);
             if (isShopDisplayed == true)
             {
+                RemoveChild(shop);
+
                 shop.visible = false;
                 isShopDisplayed = false;
             }
