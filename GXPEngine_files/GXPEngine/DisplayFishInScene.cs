@@ -24,9 +24,9 @@ namespace GXPEngine
                 case 1:
                     loadScene1(foodList, fishListPerScene);
                     break;
-                    //case 2:
-                    //    loadScene2(foodList, fishListPerScene);
-                    //    break;
+                //case 2:
+                //    loadScene2(foodList, fishListPerScene);
+                //    break;
 
             }
 
@@ -47,11 +47,11 @@ namespace GXPEngine
         }
         void loadScene2(List<Food> foodList, List<Fish> fishListPerScene)
         {
-            fish1Scene2 = new Fish(foodList, 0, "Sea water", "dicks", "yes");
-            fish2Scene2 = new Fish(foodList, 0, "Sea water", "dicks", "yes");
-            fish3Scene2 = new Fish(foodList, 0,"Sea water", "dicks", "yes");
-            fish4Scene2 = new Fish(foodList, 0,"Sea water", "dicks", "yes");
-            fish5Scene2 = new Fish(foodList, 0,"Sea water", "dicks", "yes");
+            fish1Scene2 = new Fish(foodList, 0, "Sea water", "Clownfish", "yes");
+            fish2Scene2 = new Fish(foodList, 0, "Sea water", "Schooling Bannerfish", "yes");
+            fish3Scene2 = new Fish(foodList, 0, "Sea water", "Pallette Tang", "yes");
+            fish4Scene2 = new Fish(foodList, 0, "Sea water", "dicks", "yes");
+            fish5Scene2 = new Fish(foodList, 0, "Sea water", "dicks", "yes");
             fishListPerScene.Add(fish1Scene2);
             fishListPerScene.Add(fish2Scene2);
             fishListPerScene.Add(fish3Scene2);
