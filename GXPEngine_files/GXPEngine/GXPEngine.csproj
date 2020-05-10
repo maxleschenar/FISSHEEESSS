@@ -94,6 +94,7 @@
     <Compile Include="Scene.cs" />
     <Compile Include="Shop.cs" />
     <Compile Include="Sponge.cs" />
+    <Compile Include="Tutorial.cs" />
     <Compile Include="Vec2.cs" />
   </ItemGroup>
   <ItemGroup />

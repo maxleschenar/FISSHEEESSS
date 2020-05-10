@@ -13,8 +13,10 @@ public class Level : Sprite
     public CurrencySystem currencySystem;
     public bool isInScene;
     bool inJournal;
+    //Tutorial tutorial;
     public Level() : base("aquariums.png")
     {
+        //tutorial = new Tutorial();
         isInScene = false;
         buttons = new List<Button>();
         scenes = new List<Scene>();
@@ -23,16 +25,16 @@ public class Level : Sprite
         AddButton(new Button(new Vec2(100, game.height / 2), 300, 200, "dis de first tenk"));
         AddButton(new Button(new Vec2(game.width / 2 - 100, game.height / 2), 300, 200, "dis de second denk"));
         AddButton(new Button(new Vec2(game.width - 300, game.height / 2), 300, 200, "und diese ist die dritte Aquarium"));
-        AddScene(new Scene("fishtanksample.png", currencySystem, this, 1));
-        AddScene(new Scene("empty_tank2.jpg", currencySystem, this, 2));
-        AddScene(new Scene("fishtank3.jpg", currencySystem, this, 3));
+        AddScene(new Scene("fishtanksample.png", currencySystem, this, 1,200));
+        AddScene(new Scene("empty_tank2.jpg", currencySystem, this, 2,300));
+        AddScene(new Scene("fishtank3.jpg", currencySystem, this, 3,400));
         AddChild(journal);
         inJournal = false;
+        //AddChild(tutorial);
     }
 
     void Update()
     {
-        
 
         if (!isInScene && !journal.inWindow)
         {
