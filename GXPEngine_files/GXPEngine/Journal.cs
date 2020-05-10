@@ -9,11 +9,12 @@ public class Journal : GameObject
     Sprite journalButton, close;
     Sprite journal;
     Font titleFont, textFont;
-    List<Fish> freshFish, seaFish, deepFish;
+    List<Fish> freshFish, seaFish, deepFish, listToShow;
     List<Sprite> fishSprites;
-    List<Button> buttons;
+    List<Button> freshButtons, seaButtons, deepButtons, categories, buttonsToShow;
     Canvas canvas, descriptionCanvas;
     Level level;
+    int category;
 
     public bool inWindow;
     public Journal(Level level) : base()
@@ -22,8 +23,13 @@ public class Journal : GameObject
         freshFish = new List<Fish>();
         seaFish = new List<Fish>();
         deepFish = new List<Fish>();
-        buttons = new List<Button>();
+        freshButtons = new List<Button>();
+        seaButtons = new List<Button>();
+        deepButtons = new List<Button>();
+        categories = new List<Button>();
         fishSprites = new List<Sprite>();
+        listToShow = freshFish;
+        buttonsToShow = freshButtons;
         journalButton = new Sprite("journalbutton.png");
         journalButton.SetXY(game.width - 250, game.height - 200);
         close = new Sprite("jurnalClose.png");
@@ -32,7 +38,7 @@ public class Journal : GameObject
         close.SetXY(journal.x + journal.width - close.width, journal.y);
         canvas = new Canvas(journal.width, journal.height);
         descriptionCanvas = new Canvas(500, 500);
-        
+        category = 1;
         AddChild(journalButton);
         AddChild(journal);
         AddChild(close);
@@ -43,6 +49,24 @@ public class Journal : GameObject
         titleFont = new Font("Times New Roman", 24);
         textFont = new Font("Times New Roman", 16);
         inWindow = false;
+        for (int i = 0; i < 3; i++)
+        {
+            string text = "";
+            switch (i)
+            {
+                case 0:
+                    text = "Fresh Fish";
+                    break;
+                case 1:
+                    text = "Sea Fish";
+                    break;
+                case 2:
+                    text = "Deep Fish";
+                    break;
+            }
+            Button button = new Button(new Vec2(journal.x + 50 + 110 * i, journal.y + 50), 100, 50, text);
+            categories.Add(button);
+        }
     }
 
     void Update()
@@ -56,25 +80,68 @@ public class Journal : GameObject
                 journal.alpha = 1f;
                 close.alpha = 1f;
                 inWindow = true;
-                for(int i = 0; i < buttons.Count; i++)
+                for(int i = 0; i < listToShow.Count; i++)
                 {
-                    Button button = buttons[i];
-                    button.SetXY(journal.x + 50, journal.y + 100 + 50 * i);
+                    Button button = buttonsToShow[i];
+                    button.SetXY(journal.x + 50, journal.y + 150 + 50 * i);
                     if (!HasChild(button))
                     {
                         AddChild(button);
                     }
                     button.isActive = true;
                 }
+                foreach(Button button in categories)
+                {
+                    if (!HasChild(button))
+                    {
+                        AddChild(button);
+                    }
+                }
+               
             }
         }
 
         if (inWindow)
         {
-            canvas.graphics.DrawString("FRESH WATER FISH", titleFont, Brushes.Black, journal.x, journal.y + 50);
-            for(int i = 0; i < freshFish.Count; i++)
+            switch (category)
             {
-                if (MyGame.CheckMouseInRectClick(buttons[i]))
+                case 0:
+                    listToShow = freshFish;
+                    buttonsToShow = freshButtons;
+                    break;
+                case 1:
+                    listToShow = seaFish;
+                    buttonsToShow = seaButtons;
+                    break;
+                case 2:
+                    listToShow = deepFish;
+                    buttonsToShow = deepButtons;
+                    break;
+            }
+
+            for(int i = 0; i < categories.Count; i++)
+            {
+                if (MyGame.CheckMouseInRectClick(categories[i]))
+                {
+                    if (buttonsToShow.Count >= 1)
+                    {
+                        foreach (Button button in buttonsToShow)
+                        {
+                            RemoveChild(button);
+                        }
+                    }
+                    category = i;
+                    foreach(Button button in buttonsToShow)
+                    {
+                        AddChild(button); 
+                    }
+                    Console.WriteLine(category);
+                }
+            }
+
+            for(int i = 0; i < listToShow.Count; i++)
+            {
+                if (MyGame.CheckMouseInRectClick(buttonsToShow[i]))
                 {
                     fishSprites[i].alpha = 1f;
                     if (i > 0)
@@ -83,7 +150,7 @@ public class Journal : GameObject
                     }
                     descriptionCanvas.graphics.Clear(Color.Transparent);
                     descriptionCanvas.graphics.DrawString(freshFish[i].GetFishDescription(), textFont, Brushes.Black, 0, 0);
-                    
+
                 }
             }
             if (MyGame.CheckMouseInRectClick(close))
@@ -97,7 +164,11 @@ public class Journal : GameObject
                 {
                     spr.alpha = 0f;
                 }
-                foreach(Button button in buttons)
+                foreach (Button button in buttonsToShow)
+                {
+                    RemoveChild(button);
+                }
+                foreach (Button button in categories)
                 {
                     RemoveChild(button);
                 }
@@ -112,19 +183,21 @@ public class Journal : GameObject
         spr.SetXY(journal.x + 400, journal.y + 300);
         spr.SetScaleXY(0.2f);
         spr.alpha = 0f;
-        buttons.Add(button);
         fishSprites.Add(spr);
         AddChild(spr);
         switch (fish.GetFishType())
         {
             case "Fresh water":
                 freshFish.Add(fish);
+                freshButtons.Add(button);
                 break;
             case "Sea water":
                 seaFish.Add(fish);
+                seaButtons.Add(button);
                 break;
             case "Deep water":
                 deepFish.Add(fish);
+                deepButtons.Add(button);
                 break;
         }
 
