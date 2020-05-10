@@ -10,6 +10,7 @@ public class Journal : GameObject
     Sprite journal;
     Font titleFont, textFont;
     List<Fish> freshFish, seaFish, deepFish;
+    List<Sprite> fishSprites;
     List<Button> buttons;
     Canvas canvas, descriptionCanvas;
     Level level;
@@ -22,6 +23,7 @@ public class Journal : GameObject
         seaFish = new List<Fish>();
         deepFish = new List<Fish>();
         buttons = new List<Button>();
+        fishSprites = new List<Sprite>();
         journalButton = new Sprite("journalbutton.png");
         journalButton.SetXY(game.width - 250, game.height - 200);
         close = new Sprite("jurnalClose.png");
@@ -54,8 +56,10 @@ public class Journal : GameObject
                 journal.alpha = 1f;
                 close.alpha = 1f;
                 inWindow = true;
-                foreach(Button button in buttons)
+                for(int i = 0; i < buttons.Count; i++)
                 {
+                    Button button = buttons[i];
+                    button.SetXY(journal.x + 50, journal.y + 100 + 50 * i);
                     if (!HasChild(button))
                     {
                         AddChild(button);
@@ -72,8 +76,14 @@ public class Journal : GameObject
             {
                 if (MyGame.CheckMouseInRectClick(buttons[i]))
                 {
+                    fishSprites[i].alpha = 1f;
+                    if (i > 0)
+                    {
+                        fishSprites[i - 1].alpha = 0f;
+                    }
                     descriptionCanvas.graphics.Clear(Color.Transparent);
                     descriptionCanvas.graphics.DrawString(freshFish[i].GetFishDescription(), textFont, Brushes.Black, 0, 0);
+                    
                 }
             }
             if (MyGame.CheckMouseInRectClick(close))
@@ -83,6 +93,14 @@ public class Journal : GameObject
                 journal.alpha = 0f;
                 inWindow = false;
                 descriptionCanvas.graphics.Clear(Color.Transparent);
+                foreach(Sprite spr in fishSprites)
+                {
+                    spr.alpha = 0f;
+                }
+                foreach(Button button in buttons)
+                {
+                    RemoveChild(button);
+                }
             }
         }
     }
@@ -90,7 +108,13 @@ public class Journal : GameObject
     public void AddFish(Fish fish)
     {
         Button button = new Button(new Vec2(0, 0), 300, 30, fish.GetFishName());
+        Sprite spr = new Sprite(fish.GetFishName() + "-icon.png");
+        spr.SetXY(journal.x + 400, journal.y + 300);
+        spr.SetScaleXY(0.2f);
+        spr.alpha = 0f;
         buttons.Add(button);
+        fishSprites.Add(spr);
+        AddChild(spr);
         switch (fish.GetFishType())
         {
             case "Fresh water":
