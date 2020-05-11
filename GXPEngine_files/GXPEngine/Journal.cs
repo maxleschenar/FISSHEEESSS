@@ -72,7 +72,7 @@ public class Journal : GameObject
     void Update()
     {
         canvas.SetXY(journal.x, journal.y);
-        descriptionCanvas.SetXY(journal.x + 450, journal.y + 150);
+        descriptionCanvas.SetXY(journal.x + 500, journal.y + 450);
         if (!inWindow)
         {
             if (MyGame.CheckMouseInRectClick(journalButton))
@@ -123,18 +123,7 @@ public class Journal : GameObject
             {
                 if (MyGame.CheckMouseInRectClick(categories[i]))
                 {
-                    if (buttonsToShow.Count >= 1)
-                    {
-                        foreach (Button button in buttonsToShow)
-                        {
-                            RemoveChild(button);
-                        }
-                    }
                     category = i;
-                    foreach(Button button in buttonsToShow)
-                    {
-                        AddChild(button); 
-                    }
                     Console.WriteLine(category);
                 }
             }
@@ -142,15 +131,18 @@ public class Journal : GameObject
             for(int i = 0; i < listToShow.Count; i++)
             {
                 if (MyGame.CheckMouseInRectClick(buttonsToShow[i]))
-                {
-                    fishSprites[i].alpha = 1f;
-                    if (i > 0)
+                { 
+                    if(i >= 1)
                     {
                         fishSprites[i - 1].alpha = 0f;
                     }
+                    fishSprites[i].alpha = 1f;
+                    if (i < listToShow.Count - 1)
+                    {
+                        fishSprites[i + 1].alpha = 0f;
+                    }
                     descriptionCanvas.graphics.Clear(Color.Transparent);
                     descriptionCanvas.graphics.DrawString(freshFish[i].GetFishDescription(), textFont, Brushes.Black, 0, 0);
-
                 }
             }
             if (MyGame.CheckMouseInRectClick(close))
@@ -180,7 +172,7 @@ public class Journal : GameObject
     {
         Button button = new Button(new Vec2(0, 0), 300, 30, fish.GetFishName());
         Sprite spr = new Sprite(fish.GetFishName() + "-icon.png");
-        spr.SetXY(journal.x + 400, journal.y + 300);
+        spr.SetXY(journal.x + 500, journal.y + 150);
         spr.SetScaleXY(0.2f);
         spr.alpha = 0f;
         fishSprites.Add(spr);
