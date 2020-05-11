@@ -27,7 +27,12 @@ namespace GXPEngine
         bool isOneFishShown = false;
         Sprite clickToBuy;
         //Tutorial _tutorial;
-
+        Sound cleanDirtWithSponge;
+        SoundChannel spongeClean;
+        Sound repairAquarium;
+        Sound makeFoodSound;
+        Sound openShop;
+        SoundChannel openShopSoundChannel;
 
         public Scene(string path, CurrencySystem currency, Level level, int scene, int price = 400,Tutorial tutorial=null) : base()
         {
@@ -71,6 +76,13 @@ namespace GXPEngine
             }
             AddChild(shop);
             shop.visible = false;
+            cleanDirtWithSponge = new Sound("sponge_use_sound.wav", true, true);
+            //spongeClean = cleanDirtWithSponge.Play();
+            //spongeClean.Stop();
+            repairAquarium = new Sound("repair_aquarium_sound.wav", false, true);
+            makeFoodSound = new Sound("fish_food_pick_sound.wav", false, true);
+            openShop = new Sound("opening_journal_shop_sound.wav", false, true);
+           // openShopSoundChannel = openShop.Play();
 
         }
         void addFish()
@@ -98,6 +110,7 @@ namespace GXPEngine
                 Food food = new Food();
                 AddChildAt(food, 1);
                 foodList.Add(food);
+                makeFoodSound.Play();
             }
         }
         int tutorialIndex=2;
@@ -310,6 +323,7 @@ namespace GXPEngine
                     isBought = true;
                     AddChild(inv);
                     level.currencySystem.RemoveMoney(priceOfAquarium);
+                    repairAquarium.Play();
                     //if (_tutorial.visible == true)
                     //{
                     //    ChangeTutorialFrame();
@@ -384,6 +398,7 @@ namespace GXPEngine
         {
             if (spongeOnScreen == false)
             {
+                spongeClean=cleanDirtWithSponge.Play();
                 AddChild(sponge);
                 spongeOnScreen = true;
             }
@@ -392,6 +407,7 @@ namespace GXPEngine
         {
             if (spongeOnScreen == true)
             {
+                spongeClean.Stop();
                 RemoveChild(sponge);
                 spongeOnScreen = false;
             }
@@ -429,6 +445,7 @@ namespace GXPEngine
 
             if (isShopDisplayed == false)
             {
+                openShopSoundChannel = openShop.Play();
                 shop.visible = true;
                 isShopDisplayed = true;
             }
@@ -439,7 +456,7 @@ namespace GXPEngine
             if (isShopDisplayed == true)
             {
                 RemoveChild(shop);
-
+                openShopSoundChannel.Stop();
                 shop.visible = false;
                 isShopDisplayed = false;
             }
