@@ -27,21 +27,10 @@ namespace GXPEngine
         }
         void Update()
         {
-            if (MyGame.CheckMouseInRectClick(skip))
+            if (MyGame.CheckMouseInRectClick(next))
             {
-                LateDestroy();
+                NextFrame();
             }
-            if (currentFrame <= maxFrameToChange)
-            {
-                BecomeVisible();
-                if (MyGame.CheckMouseInRectClick(next))
-                {
-                    
-                    ChangeFrame();
-                }
-            }
-            else BecomeInvisible();
-            Console.WriteLine(currentFrame+"   "+maxFrameToChange+"    "+visible);
 
         }
         public void ChangeFrame()
