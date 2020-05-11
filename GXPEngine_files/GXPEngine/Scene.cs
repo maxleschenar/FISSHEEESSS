@@ -26,10 +26,18 @@ namespace GXPEngine
         bool isBought = false;
         bool isOneFishShown = false;
         Sprite clickToBuy;
+        //Tutorial _tutorial;
+        Sound cleanDirtWithSponge;
+        SoundChannel spongeClean;
+        Sound repairAquarium;
+        Sound makeFoodSound;
+        Sound openShop;
+        SoundChannel openShopSoundChannel;
 
-
-        public Scene(string path, CurrencySystem currency, Level level, int scene, int price = 400) : base()
+        public Scene(string path, CurrencySystem currency, Level level, int scene, int price = 400,Tutorial tutorial=null) : base()
         {
+          //  _tutorial = tutorial;
+
             this.scene = scene;
             _currency = currency;
             visible = false;
@@ -54,6 +62,7 @@ namespace GXPEngine
             clickToBuy = new Sprite("checkers.png");
             clickToBuy.width = 200;
             clickToBuy.height = 200;
+            clickToBuy.y += 300;
             AddChild(clickToBuy);
             foodCan = new Sprite("fish_food.png");
             foodCan.SetOrigin(foodCan.width / 4, 0);
@@ -67,6 +76,13 @@ namespace GXPEngine
             }
             AddChild(shop);
             shop.visible = false;
+            cleanDirtWithSponge = new Sound("sponge_use_sound.wav", true, true);
+            //spongeClean = cleanDirtWithSponge.Play();
+            //spongeClean.Stop();
+            repairAquarium = new Sound("repair_aquarium_sound.wav", false, true);
+            makeFoodSound = new Sound("fish_food_pick_sound.wav", false, true);
+            openShop = new Sound("opening_journal_shop_sound.wav", false, true);
+           // openShopSoundChannel = openShop.Play();
 
         }
         void addFish()
@@ -94,69 +110,211 @@ namespace GXPEngine
                 Food food = new Food();
                 AddChildAt(food, 1);
                 foodList.Add(food);
+                makeFoodSound.Play();
             }
         }
-
+        int tutorialIndex=2;
         void Update()
         {
+            //if (_tutorial != null)
+            //{
+            //    _tutorial.visible = true;
+            //}
+            //if (_tutorial != null)
+            //{
+            //    Console.WriteLine("this is scene " + (_tutorial.visible));
+            //}
 
             if (isActive)
             {
                 if (isBought == true)
                 {
+                    //makeTutorialAppear();
+                   // ChangeTutorialMaxFrame(4);
                     canMakeFood = true;
                     addFish();
-                    switch (inv.id)
-                    {
-                        case Inventory.Food:
-                            if (inv.checkIfItemIsOverlapped() == false)
-                            {
-                                makeFood();
-                            }
-                            displayFoodCan();
-                            moveFoodCan();
-                            RemoveShop();
-                            RemoveSponge();
-                            break;
-                        case Inventory.Sponge:
-                            displaySponge();
-                            RemoveShop();
-                            RemoveFoodCan();
-                            break;
-                        case Inventory.Shop:
-                            displayShop();
-                            RemoveSponge();
-                            RemoveFoodCan();
-                            break;
-                        case 0:
-                            RemoveShop();
-                            RemoveSponge();
-                            handleMoney();
-                            RemoveFoodCan();
-                            goBack();
-                            break;
-                    }
+                    //if (_tutorial == null)
+                    //{
+                        switch (inv.id)
+                        {
+                            case Inventory.Food:
+                                if (inv.checkIfItemIsOverlapped() == false)
+                                {
+                                    makeFood();
+                                }
+                                displayFoodCan();
+                                moveFoodCan();
+                                RemoveShop();
+                                RemoveSponge();
+                                break;
+                            case Inventory.Sponge:
+                                displaySponge();
+                                RemoveShop();
+                                RemoveFoodCan();
+                                break;
+                            case Inventory.Shop:
+                                displayShop();
+                                RemoveSponge();
+                                RemoveFoodCan();
+                                break;
+                            case 0:
+                                RemoveShop();
+                                RemoveSponge();
+                                handleMoney();
+                                RemoveFoodCan();
+                                goBack();
+                                break;
+                        }
+                        if (isOneFishShown == true)
+                        {
+                            makeDirt();
+                        }
+                    //}
+                    //else
+                    //{
+                    //    switch (inv.id)
+                    //    {
+                    //        case Inventory.Food:
+                    //            if (_tutorial.currentFrame == 7)
+                    //            {
+                    //                if (inv.checkIfItemIsOverlapped() == false)
+                    //                {
+                    //                    makeFood();
+                    //                }
+                    //                displayFoodCan();
+                    //                moveFoodCan();
+                    //                RemoveShop();
+                    //                RemoveSponge();
+                    //            }
+                    //            break;
+                    //        case Inventory.Sponge:
+                    //            if (_tutorial.currentFrame >= 3)
+                    //            {
+                    //                displaySponge();
+                    //                //Console.WriteLine("not clean");
+                    //                //RemoveShop();
+                    //                //RemoveFoodCan();
+                    //                if (_tutorial.visible == true)
+                    //                {
+                    //                    _tutorial.currentFrame++;
+                    //                }
+                    //                if (cleanMeter == 0)
+                    //                {
+                    //                    Console.WriteLine("clean");
+                    //                    tutorialIndex++;
+                    //                    ChangeTutorialMaxFrame();
+                    //                    inv.id = 0;
+                    //                }
+                    //                else Console.WriteLine("not clean");
+
+                    //            }
+                    //            break;
+                    //        case Inventory.Shop:
+                    //            if (_tutorial.currentFrame >= 4)
+                    //            {
+                    //                if (_tutorial.visible == true && _tutorial.currentFrame == 4)
+                    //                {
+                    //                    _tutorial.currentFrame++;
+                    //                    tutorialIndex++;
+                    //                    ChangeTutorialMaxFrame();
+                    //                }
+                    //                if (_tutorial.visible == false && _tutorial.currentFrame == 5)
+                    //                {
+                    //                    tutorialIndex++;
+                    //                    ChangeTutorialMaxFrame();
+                    //                }
+                    //                displayShop();
+                    //                RemoveSponge();
+                    //                RemoveFoodCan();
+                    //            }
+                    //            break;
+                    //        case 0:
+                    //            //if (_tutorial.currentFrame == 7)
+                    //            // {
+                    //            RemoveShop();
+                    //            RemoveSponge();
+                    //            handleMoney();
+                    //            RemoveFoodCan();
+                    //            // }
+                    //            goBack();
+                    //            break;
+                    //    }
+                    //    if (isOneFishShown == true)
+                    //    {
+                    //        if (shop.visible == true && (_tutorial.currentFrame == 5 || _tutorial.currentFrame == 6))
+                    //        {
+                    //            if (_tutorial.currentFrame == 5)
+                    //            {
+                    //                _tutorial.currentFrame++;
+                    //            }
+                    //            tutorialIndex += 2;
+                    //            ChangeTutorialMaxFrame();
+                    //            inv.id = 0;
+                    //        }
+                    //    }
+                    //    if (isOneFishShown == true)
+                    //    {
+                    //        makeDirt();
+                    //    }
+                    //}
 
                 }
                 else
                 {
+                    //makeTutorialAppear();
+                   // ChangeTutorialMaxFrame();
                     goBack();
                     buyAquarium();
                 }
    
 
             }
-            if (isBought == true)
-            {
-                if (isOneFishShown == true)
-                {
-                    makeDirt();
-                }
-            }
+            //if (isBought == true)
+            //{
+            //    if (isOneFishShown == true)
+            //    {
+            //        makeDirt();
+            //    }
+            //}
+            //if (_tutorial != null)
+            //{
+            //    Console.WriteLine("this is scene" + (_tutorial.visible));
+            //}
         }
+        //void makeTutorialDissapear()
+        //{
+        //    if (_tutorial != null)
+        //    {
+        //        _tutorial.BecomeInvisible();
+        //    }
+        //}
+        //void makeTutorialAppear()
+        //{
+        //    if (_tutorial != null)
+        //    {
+        //        _tutorial.BecomeVisible();
+        //      //  _tutorial.maxFrameToChange++;
+        //    }
+        //}
+        //void ChangeTutorialMaxFrame()
+        //{
+        //    if (_tutorial != null)
+        //    {
+        //        _tutorial.maxFrameToChange=tutorialIndex;
+        //    }
+        //}
+        //void ChangeTutorialFrame()
+        //{
+        //    if (_tutorial != null)
+        //    {
+        //        _tutorial.currentFrame++;
+        //    }
+        //}
 
         void buyAquarium()
         {
+
+            //Console.WriteLine(_tutorial.visible);
             if (MyGame.CheckMouseInRectClick(clickToBuy))
             {
                 if (level.currencySystem.money >= priceOfAquarium)
@@ -165,6 +323,14 @@ namespace GXPEngine
                     isBought = true;
                     AddChild(inv);
                     level.currencySystem.RemoveMoney(priceOfAquarium);
+                    repairAquarium.Play();
+                    //if (_tutorial.visible == true)
+                    //{
+                    //    ChangeTutorialFrame();
+                    //}
+
+                    //tutorialIndex += 1;
+                    //ChangeTutorialMaxFrame();
                 }
 
             }
@@ -223,6 +389,7 @@ namespace GXPEngine
                 {
                     RemoveChild(shop);
                 }
+               // makeTutorialDissapear();
             }
         }
 
@@ -231,6 +398,7 @@ namespace GXPEngine
         {
             if (spongeOnScreen == false)
             {
+                spongeClean=cleanDirtWithSponge.Play();
                 AddChild(sponge);
                 spongeOnScreen = true;
             }
@@ -239,6 +407,7 @@ namespace GXPEngine
         {
             if (spongeOnScreen == true)
             {
+                spongeClean.Stop();
                 RemoveChild(sponge);
                 spongeOnScreen = false;
             }
@@ -276,6 +445,7 @@ namespace GXPEngine
 
             if (isShopDisplayed == false)
             {
+                openShopSoundChannel = openShop.Play();
                 shop.visible = true;
                 isShopDisplayed = true;
             }
@@ -286,7 +456,7 @@ namespace GXPEngine
             if (isShopDisplayed == true)
             {
                 RemoveChild(shop);
-
+                openShopSoundChannel.Stop();
                 shop.visible = false;
                 isShopDisplayed = false;
             }

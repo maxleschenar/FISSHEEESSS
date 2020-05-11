@@ -67,6 +67,9 @@ namespace GXPEngine
             listOfItemsInInventory.Add(sponge);
             listOfItemsInInventory.Add(shop);
             //emptySpace4 = new Sprite("checkers.png");
+            AddChild(food);
+            AddChild(sponge);
+            AddChild(shop);
         }
         void Update()
         {
@@ -117,24 +120,36 @@ namespace GXPEngine
             switch (id)
             {
                 case Food:
-                    RemoveChild(food);
-                    AddChild(sponge);
-                    AddChild(shop);
+                    //RemoveChild(food);
+                    food.visible = false;
+                    sponge.visible = true;
+                    //shop.visible = true;
+                    //AddChild(sponge);
+                    //AddChild(shop);
                     break;
                 case Sponge:
-                    RemoveChild(sponge);
-                    AddChild(food);
-                    AddChild(shop);
+                    //RemoveChild(sponge);
+                    //AddChild(food);
+                    //AddChild(shop);
+                    food.visible = true;
+                    sponge.visible = false;
+                   // shop.visible = true;
                     break;
                 case Shop:
-                    //RemoveChild(shop);
-                    AddChild(sponge);
-                    AddChild(food);
+                    ////RemoveChild(shop);
+                    //AddChild(sponge);
+                    //AddChild(food);
+                    food.visible = true;
+                    sponge.visible = true;
+                    //shop.visible = true;
                     break;
                 case 0:
-                    AddChild(food);
-                    AddChild(sponge);
-                    AddChild(shop);
+                    //AddChild(food);
+                    //AddChild(sponge);
+                    //AddChild(shop);
+                    food.visible = true;
+                    sponge.visible = true;
+                    //shop.visible = true;
                     break;
             }
         }

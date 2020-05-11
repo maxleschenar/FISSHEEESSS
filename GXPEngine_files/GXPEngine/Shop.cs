@@ -9,11 +9,13 @@ namespace GXPEngine
     {
         List<Fish> fishList;
         Level _level;
+        Sound buyFish;
         public Shop(List<Fish> fishListOfTank,Level level)
         {
 
             _level = level;
             fishList = fishListOfTank;
+            buyFish = new Sound("buying_fish_sound.mp3", false, true);
             makeShop();
             
         }
@@ -76,9 +78,11 @@ namespace GXPEngine
 
                             if (fish.isUnlocked == false)
                             {
+                                buyFish.Play();
                                 _level.currencySystem.RemoveMoney(fish.coinValue);
                                 fish.Unlock();
                                 _level.journal.AddFish(fish);
+
                             }
 
                         }

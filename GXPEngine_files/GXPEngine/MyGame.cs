@@ -6,14 +6,16 @@ public class MyGame : Game
 {
     Button test;
     Level level;
+    Sound music;
     bool isPlaying;
     
 
-    public MyGame() : base(1200, 720, false)        // Create a window that's 800x600 and NOT fullscreen
+    public MyGame() : base(1920, 1080, false)        // Create a window that's 800x600 and NOT fullscreen
     {
         
         isPlaying = false;
-        test = new Button(new Vec2(width / 2, height / 2 - 100), 300, 200, "Welcome ");
+        test = new Button(new Vec2(width / 2, height / 2 - 100), 300, 200, "Welcome");
+        music = new Sound("sleyar.wav");
         AddChild(test);
 
     }
@@ -23,6 +25,7 @@ public class MyGame : Game
         if (CheckMouseInRectClick(test) && !isPlaying)
         {
             level = new Level();
+            music.Play();
             AddChild(level);
             isPlaying = true;
         }

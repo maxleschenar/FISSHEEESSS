@@ -9,14 +9,16 @@ namespace GXPEngine
     {
         public int value;
         Level _level;
+        Sound colectCoin;
         public Coin(Fish fish, Level level) : base("coin.png")
         {
             x = fish.x;
             y = fish.y;
             value = fish.coinValue;
-            width /= 7;
-            height /= 7;
+            width /= 17;
+            height /= 17;
             _level = level;
+            colectCoin = new Sound("pick_up_coin_sound.wav", false, true);
         }
         void Update()
         {
@@ -34,10 +36,10 @@ namespace GXPEngine
                         Input.mouseY > this.y &&
                         Input.mouseY < this.y + this.height)
                     {
-                        //Console.WriteLine("coin");
-                        this.LateDestroy();
+                        colectCoin.Play();
                         colected = true;
                         _level.currencySystem.AddMoney(value);
+                        this.LateDestroy();
                     }
                 }
             }
